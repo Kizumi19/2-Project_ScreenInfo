@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DoctorRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DoctorRepository::class)]
@@ -19,14 +21,19 @@ class Doctor
     #[ORM\Column(length: 255)]
     private ?string $surname = null;
 
-    #[ORM\ManyToOne(inversedBy: 'doctors')]
-    private ?Location $location = null;
-
     #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\Column]
     private ?bool $hidden = null;
+
+    #[ORM\ManyToMany(targetEntity: Specialty::class, mappedBy: 'doctor_id')]
+    private Collection $specialties;
+
+    public function __construct()
+    {
+        $this->specialties = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -57,26 +64,14 @@ class Doctor
         return $this;
     }
 
-    public function getLocation(): ?Location
-    {
-        return $this->location;
-    }
-
-    public function setLocation(?Location $location): static
-    {
-        $this->location = $location;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->createdAt;
+        return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    public function setCreatedAt(\DateTimeImmutable $created_at): static
     {
-        $this->createdAt = $createdAt;
+        $this->created_at = $created_at;
 
         return $this;
     }
@@ -89,6 +84,33 @@ class Doctor
     public function setHidden(bool $hidden): static
     {
         $this->hidden = $hidden;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Specialty>
+     */
+    public function getSpecialties(): Collection
+    {
+        return $this->specialties;
+    }
+
+    public function addSpecialty(Specialty $specialty): static
+    {
+        if (!$this->specialties->contains($specialty)) {
+            $this->specialties->add($specialty);
+            $specialty->addDoctorId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSpecialty(Specialty $specialty): static
+    {
+        if ($this->specialties->removeElement($specialty)) {
+            $specialty->removeDoctorId($this);
+        }
 
         return $this;
     }
