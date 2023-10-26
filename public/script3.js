@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
           "inline-block"; // Mostra el botó 'Carregant dades...'
         setTimeout(function () {
           clearTimeout(loadingTimeout);
-          window.location.href = "formDoctor.php";
+          window.location.href = "/formDoctor";
         }, 5500);
       });
     }
