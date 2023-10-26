@@ -28,9 +28,13 @@ class Doctor
     #[ORM\OneToMany(mappedBy: 'doctor', targetEntity: Schedule::class)]
     private Collection $schedules;
 
+    #[ORM\OneToMany(mappedBy: 'doctor', targetEntity: DoctorSpeciality::class)]
+    private Collection $doctorSpecialities;
+
     public function __construct()
     {
         $this->schedules = new ArrayCollection();
+        $this->doctorSpecialities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -98,6 +102,36 @@ class Doctor
             // set the owning side to null (unless already changed)
             if ($schedule->getDoctor() === $this) {
                 $schedule->setDoctor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DoctorSpeciality>
+     */
+    public function getDoctorSpecialities(): Collection
+    {
+        return $this->doctorSpecialities;
+    }
+
+    public function addDoctorSpeciality(DoctorSpeciality $doctorSpeciality): static
+    {
+        if (!$this->doctorSpecialities->contains($doctorSpeciality)) {
+            $this->doctorSpecialities->add($doctorSpeciality);
+            $doctorSpeciality->setDoctor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDoctorSpeciality(DoctorSpeciality $doctorSpeciality): static
+    {
+        if ($this->doctorSpecialities->removeElement($doctorSpeciality)) {
+            // set the owning side to null (unless already changed)
+            if ($doctorSpeciality->getDoctor() === $this) {
+                $doctorSpeciality->setDoctor(null);
             }
         }
 

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Doctor index{% endblock %}
+
+{% block body %}
+    <h1>Crear un doctor</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Cognoms</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for doctor in doctors %}
+            <tr>
+                <td>{{ doctor.name }}</td>
+                <td>{{ doctor.surname }}</td>
+                <td>
+                    <a href="{{ path('app_doctor_show', {'id': doctor.id}) }}">show</a>
+                    <a href="{{ path('app_doctor_edit', {'id': doctor.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">No s'han trobat més registres</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_doctor_new') }}">Crear un nou doctor/a</a>
+{% endblock %}
