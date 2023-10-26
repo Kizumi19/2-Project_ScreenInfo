@@ -3,6 +3,8 @@
 {% block title %}Hello IndexController!{% endblock %}
 
 {% block body %}
+    {% include('header.html.twig') %}
+
     <!-- Card 1 Mostrar info -->
     <body>
     <div class="container px-4 text-center m-3">
@@ -12,7 +14,7 @@
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row gx-5">
                         <div class="col-md-4">
-                            <img src="src/EditIcon.png" style="max-width: 100%; max-height: 200px;" class="img-fluid img-limited rounded-start" alt="...">
+                            <img src="{{ asset('images/EditIcon.png') }}" style="max-width: 100%; max-height: 200px;" class="img-fluid img-limited rounded-start" alt="...">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
@@ -34,7 +36,7 @@
                 <div class="card mb-3">
                     <div class="row gx-5 " >
                         <div class="col-md-4" >
-                            <img src="src/MostrarInfoIcona.png" style="max-width: 100%; max-height: 200px;" class="img-fluid imatge-visualitzar rounded-start" alt="...">
+                            <img src="{{ asset('images/MostrarInfoIcona.png') }}" style="max-width: 100%; max-height: 200px;" class="img-fluid imatge-visualitzar rounded-start" alt="...">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
@@ -51,4 +53,6 @@
         </div>
     </div>
     </body>
+    {% include('footer.html.twig') %}
+
 {% endblock %}
