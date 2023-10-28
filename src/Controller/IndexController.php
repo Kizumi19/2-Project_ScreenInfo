@@ -15,4 +15,13 @@ class IndexController extends AbstractController
 
         ]);
     }
+
+    #[Route('/admin/dashboard', name: 'app_admin_dashboard')]
+    public function dashboard(): Response
+    {
+        return $this->render('admin/index.html.twig', [
+
+        ]);
+    }
+
 }

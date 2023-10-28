@@ -3,24 +3,28 @@
 {% block title %}AdminDashboard!{% endblock %}
 
 {% block body %}
-    {% include('header.html.twig') %}
-
+<div class="container">
     <div class="row">
-    <div class="col">
-        <h1>Admin Dashboard ✅</h1>
-        <ul class="list-group">
-            <li class="list-group-item">
-                <a class="btn btn-primary" href="{{ path('app_location_index') }}">Plantes i consultes dels doctors</a>
-            </li>
-            <li class="list-group-item">
-                <a class="btn btn-primary" href="{{ path('app_speciality_index') }}">Especialitats dels doctors</a>
-            </li>
-            <li class="list-group-item">A third item</li>
-            <li class="list-group-item">A fourth item</li>
-            <li class="list-group-item">And a fifth one</li>
-        </ul>
+        <div class="col">
+            <h1>Admin Dashboard ✅</h1>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a class="btn btn-primary" href="{{ path('app_location_index') }}">Editar plantes i consultes dels doctors</a>
+                </li>
+                <li class="list-group-item">
+                    <a class="btn btn-primary" href="{{ path('app_speciality_index') }}">Editar especialitats dels doctors</a>
+                </li>
+                <li class="list-group-item">
+                    <a class="btn btn-primary" href="{{ path('app_doctor_index') }}">Editar dades els doctors</a>
+                </li>
+                <li class="list-group-item">
+                    <a class="btn btn-primary" href="{{ path('app_schedule_index') }}">Editar horaris dels doctors</a>
+                </li>
+
+            </ul>
+        </div>
     </div>
+
 </div>
-    {% include('footer.html.twig') %}
 
 {% endblock %}
