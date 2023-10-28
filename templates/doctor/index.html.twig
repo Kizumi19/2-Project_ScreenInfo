@@ -2,7 +2,7 @@
 
 {% block title %}Doctor index{% endblock %}
 
-{% block body %}
+{% block inside_body %}
     <h1>Crear un doctor</h1>
 
     <table class="table">
@@ -10,7 +10,7 @@
             <tr>
                 <th>Nom</th>
                 <th>Cognoms</th>
-                <th>actions</th>
+                <th>Accions</th>
             </tr>
         </thead>
         <tbody>
@@ -19,8 +19,11 @@
                 <td>{{ doctor.name }}</td>
                 <td>{{ doctor.surname }}</td>
                 <td>
-                    <a href="{{ path('app_doctor_show', {'id': doctor.id}) }}">show</a>
-                    <a href="{{ path('app_doctor_edit', {'id': doctor.id}) }}">edit</a>
+                    <div class="btn-group">
+                        <a class="btn btn-secondary" href="{{ path('app_doctor_show', {'id': doctor.id}) }}">Mostrar</a>
+                        <a class="btn btn-secondary" href="{{ path('app_doctor_edit', {'id': doctor.id}) }}">Editar</a>
+
+                    </div>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +34,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_doctor_new') }}">Crear un nou doctor/a</a>
+    <a class="btn btn-primary" href="{{ path('app_doctor_new') }}">Crear un nou doctor/a</a>
 {% endblock %}

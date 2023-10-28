@@ -2,10 +2,10 @@
 
 {% block title %}New Doctor{% endblock %}
 
-{% block body %}
+{% block inside_body %}
     <h1>Crea un nou doctor/a</h1>
 
     {{ include('doctor/_form.html.twig') }}
 
-    <a href="{{ path('app_doctor_index') }}">back to list</a>
+    <a class="btn btn-warning" href="{{ path('app_doctor_index') }}">back to list</a>
 {% endblock %}
