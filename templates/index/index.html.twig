@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello IndexController!{% endblock %}
+{% block title %}Pantalla principal{% endblock %}
 
 {% block body %}
 
 
     <!-- Card 1 Mostrar info -->
-    <div class="container px-4 text-center m-3">
+    <div class="container px-4 m-3">
         <div class="row align-items-start">
             <!-- Primer card -->
             <div class="col-md-6">
@@ -19,11 +19,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Editar informació de la pantalla</h5>
                                 <p class="card-text">Podrà canviar la informació dels doctors.</p>
-                                <a id="originalButton" class="btn btn-primary">Editar</a>
-                                <button class="btn btn-primary" type="button" disabled style="display:none;">
-                                    <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
-                                    <span role="status">Carregant dades...</span>
-                                </button>
+                                <a href="{{ path('app_doctor_index') }}" class="btn btn-primary">Editar</a>
                             </div>
                         </div>
                     </div>

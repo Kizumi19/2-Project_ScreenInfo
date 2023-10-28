@@ -22,7 +22,7 @@ class Schedule
     #[ORM\Column(length: 255)]
     private ?string $day = null;
 
-    #[ORM\Column(type: 'shift')]
+    #[ORM\Column(type: Types::STRING)]
     private string $shift;
 
     #[ORM\ManyToOne(inversedBy: 'schedules')]
