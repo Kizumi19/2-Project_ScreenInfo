@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\SpecialityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SpecialityRepository::class)]
@@ -14,13 +17,18 @@ class Speciality
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $typeSpeciality = null;
+    private ?string $type_speciality = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $hidden = null;
 
-    #[ORM\Column]
-    private ?bool $hidden = null;
+    #[ORM\OneToMany(mappedBy: 'speciality', targetEntity: DoctorSpeciality::class)]
+    private Collection $doctorSpecialities;
+
+    public function __construct()
+    {
+        $this->doctorSpecialities = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -29,36 +37,54 @@ class Speciality
 
     public function getTypeSpeciality(): ?string
     {
-        return $this->typeSpeciality;
+        return $this->type_speciality;
     }
 
-    public function setTypeSpeciality(string $typeSpeciality): static
+    public function setTypeSpeciality(string $type_speciality): static
     {
-        $this->typeSpeciality = $typeSpeciality;
+        $this->type_speciality = $type_speciality;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function isHidden(): ?bool
+    public function getHidden(): ?\DateTimeInterface
     {
         return $this->hidden;
     }
 
-    public function setHidden(bool $hidden): static
+    public function setHidden(?\DateTimeInterface $hidden): static
     {
         $this->hidden = $hidden;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DoctorSpeciality>
+     */
+    public function getDoctorSpecialities(): Collection
+    {
+        return $this->doctorSpecialities;
+    }
+
+    public function addDoctorSpeciality(DoctorSpeciality $doctorSpeciality): static
+    {
+        if (!$this->doctorSpecialities->contains($doctorSpeciality)) {
+            $this->doctorSpecialities->add($doctorSpeciality);
+            $doctorSpeciality->setSpeciality($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDoctorSpeciality(DoctorSpeciality $doctorSpeciality): static
+    {
+        if ($this->doctorSpecialities->removeElement($doctorSpeciality)) {
+            // set the owning side to null (unless already changed)
+            if ($doctorSpeciality->getSpeciality() === $this) {
+                $doctorSpeciality->setSpeciality(null);
+            }
+        }
 
         return $this;
     }

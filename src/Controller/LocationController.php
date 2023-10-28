@@ -11,10 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/localitzacions')]
+#[Route('/location')]
 class LocationController extends AbstractController
 {
-    #[Route('/llista', name: 'app_location_index', methods: ['GET'])]
+    #[Route('/', name: 'app_location_index', methods: ['GET'])]
     public function index(LocationRepository $locationRepository): Response
     {
         return $this->render('location/index.html.twig', [
@@ -22,7 +22,7 @@ class LocationController extends AbstractController
         ]);
     }
 
-    #[Route('/crear-nova-localitzacio', name: 'app_location_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_location_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $location = new Location();
@@ -42,7 +42,7 @@ class LocationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/mostrar', name: 'app_location_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_location_show', methods: ['GET'])]
     public function show(Location $location): Response
     {
         return $this->render('location/show.html.twig', [
@@ -50,7 +50,7 @@ class LocationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/editar', name: 'app_location_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_location_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Location $location, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(LocationType::class, $location);

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\LocationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: LocationRepository::class)]
@@ -21,18 +22,15 @@ class Location
     #[ORM\Column]
     private ?int $room = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $created_at = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $hidden = null;
 
-    #[ORM\Column]
-    private ?bool $hidden = null;
-
-    #[ORM\OneToMany(mappedBy: 'location', targetEntity: Doctor::class)]
-    private Collection $doctors;
+    #[ORM\OneToMany(mappedBy: 'location', targetEntity: Schedule::class)]
+    private Collection $schedules;
 
     public function __construct()
     {
-        $this->doctors = new ArrayCollection();
+        $this->schedules = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -64,24 +62,12 @@ class Location
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $created_at): static
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function isHidden(): ?bool
+    public function getHidden(): ?\DateTimeInterface
     {
         return $this->hidden;
     }
 
-    public function setHidden(bool $hidden): static
+    public function setHidden(?\DateTimeInterface $hidden): static
     {
         $this->hidden = $hidden;
 
@@ -89,29 +75,29 @@ class Location
     }
 
     /**
-     * @return Collection<int, Doctor>
+     * @return Collection<int, Schedule>
      */
-    public function getDoctors(): Collection
+    public function getSchedules(): Collection
     {
-        return $this->doctors;
+        return $this->schedules;
     }
 
-    public function addDoctor(Doctor $doctor): static
+    public function addSchedule(Schedule $schedule): static
     {
-        if (!$this->doctors->contains($doctor)) {
-            $this->doctors->add($doctor);
-            $doctor->setLocation($this);
+        if (!$this->schedules->contains($schedule)) {
+            $this->schedules->add($schedule);
+            $schedule->setLocation($this);
         }
 
         return $this;
     }
 
-    public function removeDoctor(Doctor $doctor): static
+    public function removeSchedule(Schedule $schedule): static
     {
-        if ($this->doctors->removeElement($doctor)) {
+        if ($this->schedules->removeElement($schedule)) {
             // set the owning side to null (unless already changed)
-            if ($doctor->getLocation() === $this) {
-                $doctor->setLocation(null);
+            if ($schedule->getLocation() === $this) {
+                $schedule->setLocation(null);
             }
         }
 

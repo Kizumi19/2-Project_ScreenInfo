@@ -9,8 +9,7 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>TypeSpeciality</th>
-                <th>CreatedAt</th>
+                <th>Type_speciality</th>
                 <th>Hidden</th>
                 <th>actions</th>
             </tr>
@@ -20,8 +19,7 @@
             <tr>
                 <td>{{ speciality.id }}</td>
                 <td>{{ speciality.typeSpeciality }}</td>
-                <td>{{ speciality.createdAt ? speciality.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ speciality.hidden ? 'Yes' : 'No' }}</td>
+                <td>{{ speciality.hidden ? speciality.hidden|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('app_speciality_show', {'id': speciality.id}) }}">show</a>
                     <a href="{{ path('app_speciality_edit', {'id': speciality.id}) }}">edit</a>
@@ -29,7 +27,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="4">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

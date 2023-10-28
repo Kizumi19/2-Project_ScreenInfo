@@ -14,9 +14,7 @@ class DoctorType extends AbstractType
         $builder
             ->add('name')
             ->add('surname')
-            ->add('createdAt')
             ->add('hidden')
-            ->add('location')
         ;
     }
 

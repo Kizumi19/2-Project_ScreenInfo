@@ -3,7 +3,9 @@
 {% block title %}AdminDashboard!{% endblock %}
 
 {% block body %}
-<div class="row">
+    {% include('header.html.twig') %}
+
+    <div class="row">
     <div class="col">
         <h1>Admin Dashboard ✅</h1>
         <ul class="list-group">
@@ -19,4 +21,6 @@
         </ul>
     </div>
 </div>
+    {% include('footer.html.twig') %}
+
 {% endblock %}

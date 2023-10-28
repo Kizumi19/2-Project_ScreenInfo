@@ -14,7 +14,6 @@ class LocationType extends AbstractType
         $builder
             ->add('floor')
             ->add('room')
-            ->add('created_at')
             ->add('hidden')
         ;
     }

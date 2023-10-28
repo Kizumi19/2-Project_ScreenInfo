@@ -20,12 +20,8 @@
                 <td>{{ doctor.surname }}</td>
             </tr>
             <tr>
-                <th>CreatedAt</th>
-                <td>{{ doctor.createdAt ? doctor.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
                 <th>Hidden</th>
-                <td>{{ doctor.hidden ? 'Yes' : 'No' }}</td>
+                <td>{{ doctor.hidden ? doctor.hidden|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>

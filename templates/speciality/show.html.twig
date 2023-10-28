@@ -12,16 +12,12 @@
                 <td>{{ speciality.id }}</td>
             </tr>
             <tr>
-                <th>TypeSpeciality</th>
+                <th>Type_speciality</th>
                 <td>{{ speciality.typeSpeciality }}</td>
             </tr>
             <tr>
-                <th>CreatedAt</th>
-                <td>{{ speciality.createdAt ? speciality.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
                 <th>Hidden</th>
-                <td>{{ speciality.hidden ? 'Yes' : 'No' }}</td>
+                <td>{{ speciality.hidden ? speciality.hidden|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>
