@@ -66,6 +66,11 @@ class Doctor
         return $this;
     }
 
+    public function getFullName(): ?string
+    {
+        return $this->getName().' '.$this->getSurname();
+    }
+
     public function getHidden(): ?\DateTimeInterface
     {
         return $this->hidden;
