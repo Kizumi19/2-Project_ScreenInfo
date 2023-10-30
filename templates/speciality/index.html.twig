@@ -1,37 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Speciality index{% endblock %}
+{% block title %}Especialitats index{% endblock %}
 
 {% block inside_body %}
-    <h1>Speciality index</h1>
+    <h1>Index d'especialitats</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Type_speciality</th>
-                <th>Hidden</th>
-                <th>actions</th>
+                <th>Tipus especialitat</th>
+                <th>Accions</th>
             </tr>
         </thead>
         <tbody>
         {% for speciality in specialities %}
             <tr>
-                <td>{{ speciality.id }}</td>
                 <td>{{ speciality.typeSpeciality }}</td>
-                <td>{{ speciality.hidden ? speciality.hidden|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_speciality_show', {'id': speciality.id}) }}">show</a>
-                    <a href="{{ path('app_speciality_edit', {'id': speciality.id}) }}">edit</a>
+                    <div class="btn-group">
+                        <a class="btn btn-secondary" href="{{ path('app_speciality_show', {'id': speciality.id}) }}">Mostra</a>
+                        <a class="btn btn-secondary" href="{{ path('app_speciality_edit', {'id': speciality.id}) }}">Edita</a>
+                    </div>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">No s'han trobat resultats</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_speciality_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('app_speciality_new') }}">Crea una nova especilialitat</a>
+
 {% endblock %}

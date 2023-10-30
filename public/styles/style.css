@@ -10,3 +10,17 @@
     max-width: 100%;
     max-height: 200px;
 }
+
+.boto-personalitzat {
+    background-color: #8a4fc8;
+    color: #ffffff;
+    border: none;
+    font-weight: bold;          /* Text en negreta */
+    transition: 0.3s;           /* Transició suau per a efectes hover */
+}
+
+.boto-personalitzat:hover {
+    background-color: #7639b0;  /* To més oscur per als fons */
+}
+
+

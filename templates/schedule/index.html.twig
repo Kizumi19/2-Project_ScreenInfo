@@ -9,28 +9,26 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Day</th>
-                <th>Shift</th>
-                <th>Hidden</th>
-                <th>actions</th>
+                <th>Dia</th>
+                <th>Torn</th>
+                <th>Accions</th>
             </tr>
         </thead>
         <tbody>
         {% for schedule in schedules %}
             <tr>
-                <td>{{ schedule.id }}</td>
                 <td>{{ schedule.day }}</td>
                 <td>{{ schedule.shift }}</td>
-                <td>{{ schedule.hidden ? schedule.hidden|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_schedule_show', {'id': schedule.id}) }}">show</a>
-                    <a href="{{ path('app_schedule_edit', {'id': schedule.id}) }}">edit</a>
+                    <div class="btn-group">
+                        <a class="btn btn-secondary" href="{{ path('app_schedule_show', {'id': schedule.id}) }}">show</a>
+                        <a class="btn btn-secondary" href="{{ path('app_schedule_edit', {'id': schedule.id}) }}">edit</a>
+                    </div>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">No s'han trobat resultats</td>
             </tr>
         {% endfor %}
         </tbody>

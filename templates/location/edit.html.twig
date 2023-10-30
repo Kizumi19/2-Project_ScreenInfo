@@ -3,11 +3,10 @@
 {% block title %}Edit Location{% endblock %}
 
 {% block inside_body %}
-    <h1>Edit Location</h1>
+    <h1>Edita la localització</h1>
 
     {{ include('location/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_location_index') }}">back to list</a>
-
     {{ include('location/_delete_form.html.twig') }}
+    {{ include('doctor/_back_to_list.html.twig') }}
+
 {% endblock %}

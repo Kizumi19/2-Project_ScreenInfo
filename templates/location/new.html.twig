@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Location{% endblock %}
+{% block title %}Nova localització{% endblock %}
 
 {% block inside_body %}
-    <h1>Create new Location</h1>
+    <h1>Crea una nova localització</h1>
 
     {{ include('location/_form.html.twig') }}
 
-    <a href="{{ path('app_location_index') }}">back to list</a>
+    {{ include('doctor/_back_to_list.html.twig') }}
+
 {% endblock %}
