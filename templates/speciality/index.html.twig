@@ -3,6 +3,8 @@
 {% block title %}Especialitats index{% endblock %}
 
 {% block inside_body %}
+    {% include('subNavbarAdmin.html.twig') %}
+
     <h1>Index d'especialitats</h1>
 
     <table class="table">
@@ -31,6 +33,9 @@
         </tbody>
     </table>
 
-    <a class="btn btn-primary" href="{{ path('app_speciality_new') }}">Crea una nova especilialitat</a>
+    <div>
+        <a class="btn btn-primary" href="{{ path('app_speciality_new') }}">Crea una nova especilialitat</a>
+    </div>
+
 
 {% endblock %}
