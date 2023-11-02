@@ -2,11 +2,9 @@
 
 namespace App\Entity;
 
-use App\Enum\Shift;
 use App\Repository\ScheduleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Hydrator\Strategy\ShiftHydratorStrategy;
 
 #[ORM\Entity(repositoryClass: ScheduleRepository::class)]
 class Schedule
@@ -19,11 +17,12 @@ class Schedule
     #[ORM\ManyToOne(inversedBy: 'schedules')]
     private ?Doctor $doctor = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $day = null;
 
-    #[ORM\Column(type: Types::STRING)]
-    private string $shift;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $shift = null;
 
     #[ORM\ManyToOne(inversedBy: 'schedules')]
     private ?Location $location = null;
@@ -48,29 +47,36 @@ class Schedule
         return $this;
     }
 
-    public function getDay(): ?string
+    public function getDay(): array
     {
-        return $this->day;
+        return $this->day ? explode(',', $this->day) : [];
     }
 
-    public function setDay(string $day): static
-    {
-        $this->day = $day;
 
+
+    public function setDay(array $day): static
+    {
+        $this->day = implode(',', $day);
         return $this;
     }
 
 
 
-    public function getShift(): Shift
+
+
+    public function getShift(): ?string
     {
         return $this->shift;
     }
 
-    public function setShift(?Shift $shift): void
+    public function setShift(string $shift): self
     {
         $this->shift = $shift;
+
+        return $this;
     }
+
+
 
 
     public function getLocation(): ?Location

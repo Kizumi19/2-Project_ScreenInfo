@@ -4,10 +4,10 @@ namespace App\Form;
 
 use App\Entity\Doctor;
 use App\Entity\Schedule;
-use App\Enum\Shift;
+
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\EnumType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -30,13 +30,40 @@ class ScheduleType extends AbstractType
             )
             ->add(
                 'shift',
-                EnumType::class,
+                ChoiceType::class,
                 [
-                    'label' => 'Torns',
+                    'label' => 'Dies',
                     'required' => true,
-                    'class' => Shift::class
+                    'multiple' => false,
+                    'expanded' => true,
+                    'choices' => [
+                        'Matí' => 'Morning',
+                        'Tarda' => 'Afternoon',
+                        'Matí i tarde' => 'Morning'.' '.'Afternoon'
+                    ]
                 ]
             )
+            ->add(
+                'day',
+                ChoiceType::class,
+                [
+                    'label' => 'Dies',
+                    'required' => true,
+                    'multiple' => true,
+                    'expanded' => true,
+                    'choices' => [
+                        'Dilluns' => 'Monday',
+                        'Dimarts' => 'Tuesday',
+                        'Dimecres' => 'Wednesday',
+                        'Dijous' => 'Thursday',
+                        'Divendres' => 'Friday',
+                        'Dissabte' => 'Saturday',
+                        'Diumenge' => 'Sunday'
+                    ]
+
+                ]
+            )
+
         ;
     }
 
