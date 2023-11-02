@@ -20,10 +20,16 @@
         {% for schedule in schedules %}
             <tr>
                 <td>{{ schedule.doctor.fullName }}</td>
-                <td>{{ (schedule.day|join(', '))|trans }}</td>
-                <td>{{ (schedule.shift|join(', '))|trans }}</td>
-
-
+                <td>
+                    {% for day in schedule.day %}
+                        {{ day|trans }}{% if not loop.last %},{% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for shift in schedule.shift %}
+                        {{ shift|trans }}{% if not loop.last %},{% endif %}
+                    {% endfor %}
+                </td>
                 <td>
                     <div class="btn-group">
                         <a class="btn btn-secondary" href="{{ path('app_schedule_show', {'id': schedule.id}) }}">show</a>

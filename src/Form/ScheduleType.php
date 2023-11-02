@@ -34,12 +34,11 @@ class ScheduleType extends AbstractType
                 [
                     'label' => 'Dies',
                     'required' => true,
-                    'multiple' => false,
+                    'multiple' => true,
                     'expanded' => true,
                     'choices' => [
                         'Matí' => 'Morning',
                         'Tarda' => 'Afternoon',
-                        'Matí i tarde' => 'Morning'.' '.'Afternoon'
                     ]
                 ]
             )

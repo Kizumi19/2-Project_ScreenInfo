@@ -17,12 +17,12 @@ class Schedule
     #[ORM\ManyToOne(inversedBy: 'schedules')]
     private ?Doctor $doctor = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private ?string $day = null;
+    #[ORM\Column(type: Types::JSON, length: 255)]
+    private ?array $day = null;
 
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private ?string $shift = null;
+    #[ORM\Column(type: Types::JSON, length: 255)]
+    private ?array $shift = null;
 
     #[ORM\ManyToOne(inversedBy: 'schedules')]
     private ?Location $location = null;
@@ -49,27 +49,23 @@ class Schedule
 
     public function getDay(): array
     {
-        return $this->day ? explode(',', $this->day) : [];
+        return $this->day;
     }
 
 
 
     public function setDay(array $day): static
     {
-        $this->day = implode(',', $day);
+        $this->day = $day;
         return $this;
     }
 
-
-
-
-
-    public function getShift(): ?string
+    public function getShift(): array
     {
         return $this->shift;
     }
 
-    public function setShift(string $shift): self
+    public function setShift(array $shift): self
     {
         $this->shift = $shift;
 
