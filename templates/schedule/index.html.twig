@@ -20,8 +20,8 @@
         {% for schedule in schedules %}
             <tr>
                 <td>{{ schedule.doctor.fullName }}</td>
-                <td>{{ (schedule.day|join(', '))|trans }}</td>
-                <td>{{ (schedule.shift|join(', '))|trans }}</td>
+                <td>{{ (schedule.day|join(', ')) }}</td>
+                <td>{{ (schedule.shift|join(', ')) }}</td>
 
 
                 <td>
