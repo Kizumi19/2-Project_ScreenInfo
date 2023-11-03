@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+    {% extends 'base.html.twig' %}
 
 {% block title %}Schedule index{% endblock %}
 
@@ -32,8 +32,8 @@
                 </td>
                 <td>
                     <div class="btn-group">
-                        <a class="btn btn-secondary" href="{{ path('app_schedule_show', {'id': schedule.id}) }}">show</a>
-                        <a class="btn btn-secondary" href="{{ path('app_schedule_edit', {'id': schedule.id}) }}">edit</a>
+                        <a class="btn btn-secondary" href="{{ path('app_schedule_show', {'id': schedule.id}) }}">Mostra</a>
+                        <a class="btn btn-secondary" href="{{ path('app_schedule_edit', {'id': schedule.id}) }}">Edita</a>
                     </div>
                 </td>
             </tr>

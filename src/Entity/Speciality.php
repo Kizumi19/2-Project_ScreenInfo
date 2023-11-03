@@ -17,17 +17,17 @@ class Speciality
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $type_speciality = null;
+    private ?string $Type_Speciality = null;
+
+    #[ORM\ManyToMany(targetEntity: Doctor::class, inversedBy: 'specialities')]
+    private Collection $Doctor;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $hidden = null;
 
-    #[ORM\OneToMany(mappedBy: 'speciality', targetEntity: DoctorSpeciality::class)]
-    private Collection $doctorSpecialities;
-
     public function __construct()
     {
-        $this->doctorSpecialities = new ArrayCollection();
+        $this->Doctor = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -37,12 +37,36 @@ class Speciality
 
     public function getTypeSpeciality(): ?string
     {
-        return $this->type_speciality;
+        return $this->Type_Speciality;
     }
 
-    public function setTypeSpeciality(string $type_speciality): static
+    public function setTypeSpeciality(string $Type_Speciality): static
     {
-        $this->type_speciality = $type_speciality;
+        $this->Type_Speciality = $Type_Speciality;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Doctor>
+     */
+    public function getDoctor(): Collection
+    {
+        return $this->Doctor;
+    }
+
+    public function addDoctor(Doctor $doctor): static
+    {
+        if (!$this->Doctor->contains($doctor)) {
+            $this->Doctor->add($doctor);
+        }
+
+        return $this;
+    }
+
+    public function removeDoctor(Doctor $doctor): static
+    {
+        $this->Doctor->removeElement($doctor);
 
         return $this;
     }
@@ -55,36 +79,6 @@ class Speciality
     public function setHidden(?\DateTimeInterface $hidden): static
     {
         $this->hidden = $hidden;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, DoctorSpeciality>
-     */
-    public function getDoctorSpecialities(): Collection
-    {
-        return $this->doctorSpecialities;
-    }
-
-    public function addDoctorSpeciality(DoctorSpeciality $doctorSpeciality): static
-    {
-        if (!$this->doctorSpecialities->contains($doctorSpeciality)) {
-            $this->doctorSpecialities->add($doctorSpeciality);
-            $doctorSpeciality->setSpeciality($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDoctorSpeciality(DoctorSpeciality $doctorSpeciality): static
-    {
-        if ($this->doctorSpecialities->removeElement($doctorSpeciality)) {
-            // set the owning side to null (unless already changed)
-            if ($doctorSpeciality->getSpeciality() === $this) {
-                $doctorSpeciality->setSpeciality(null);
-            }
-        }
 
         return $this;
     }

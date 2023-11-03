@@ -1,13 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Speciality{% endblock %}
+{% block title %}Nova especialitat{% endblock %}
 
 {% block inside_body %}
-    <h1>
-        <h1>{{ 'speciality.new'|trans }}</h1>
+    <h1>Crea una nova especialitat</h1>
 
-    </h1>
     {{ include('speciality/_form.html.twig') }}
 
-    {{ include('doctor/_back_to_list.html.twig') }}
+    {{ include('speciality/_back_to_list.html.twig') }}
 {% endblock %}

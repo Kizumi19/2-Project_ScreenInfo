@@ -1,41 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Especialitats index{% endblock %}
+{% block title %}Espcialitats{% endblock %}
 
 {% block inside_body %}
-    {% include('subNavbarAdmin.html.twig') %}
-
-    <h1>Index d'especialitats</h1>
+    <h1>Especialitats</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Tipus especialitat</th>
-                <th>Accions</th>
+                <th>Id</th>
+                <th>Type_Speciality</th>
+                <th>Hidden</th>
+                <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for speciality in specialities %}
             <tr>
-                <td>{{ speciality.typeSpeciality }}</td>
+                <td>{{ speciality.id }}</td>
+                <td>{{ speciality.TypeSpeciality }}</td>
+                <td>{{ speciality.hidden ? speciality.hidden|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <div class="btn-group">
-                        <a class="btn btn-secondary" href="{{ path('app_speciality_show', {'id': speciality.id}) }}">Mostra</a>
-                        <a class="btn btn-secondary" href="{{ path('app_speciality_edit', {'id': speciality.id}) }}">Edita</a>
-                    </div>
+                    <a href="{{ path('app_speciality_show', {'id': speciality.id}) }}">show</a>
+                    <a href="{{ path('app_speciality_edit', {'id': speciality.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">No s'han trobat resultats</td>
+                <td colspan="4">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <div>
-        <a class="btn btn-primary" href="{{ path('app_speciality_new') }}">Crea una nova especilialitat</a>
-    </div>
-
-
+    <a href="{{ path('app_speciality_new') }}">Create new</a>
 {% endblock %}
