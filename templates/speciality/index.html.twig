@@ -1,28 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Espcialitats{% endblock %}
+{% block title %}Especialitats{% endblock %}
 
 {% block inside_body %}
-    <h1>Especialitats</h1>
+    <h1>Especialitats dels doctors</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Type_Speciality</th>
-                <th>Hidden</th>
-                <th>actions</th>
+                <th>Doctor/a</th>
+                <th>Tipus especialitat</th>
+                <th>Accions</th>
             </tr>
         </thead>
         <tbody>
         {% for speciality in specialities %}
             <tr>
-                <td>{{ speciality.id }}</td>
-                <td>{{ speciality.TypeSpeciality }}</td>
-                <td>{{ speciality.hidden ? speciality.hidden|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_speciality_show', {'id': speciality.id}) }}">show</a>
-                    <a href="{{ path('app_speciality_edit', {'id': speciality.id}) }}">edit</a>
+                    {% for nameDoctor in speciality.fullNamesOfDoctors %}
+                        {{ nameDoctor }}
+                    {% endfor %}
+                </td>
+
+                <td>{{ speciality.typeSpeciality }}</td>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn btn-secondary" href="{{ path('app_speciality_show', {'id': speciality.id}) }}">Mostra</a>
+                        <a class="btn btn-secondary" href="{{ path('app_speciality_edit', {'id': speciality.id}) }}">Edita</a>
+                    </div>
                 </td>
             </tr>
         {% else %}
@@ -30,8 +35,9 @@
                 <td colspan="4">no records found</td>
             </tr>
         {% endfor %}
+
         </tbody>
     </table>
 
-    <a href="{{ path('app_speciality_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('app_speciality_new') }}">Crear una nova especialitat</a>
 {% endblock %}

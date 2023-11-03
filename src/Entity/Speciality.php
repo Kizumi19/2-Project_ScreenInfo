@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Doctor;
 use App\Repository\SpecialityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -81,5 +82,18 @@ class Speciality
         $this->hidden = $hidden;
 
         return $this;
+    }
+
+    // Per poder agafar els noms dels doctors
+    /**
+     * @return array<string>
+     */
+    public function  getFullNamesOfDoctors(): array
+    {
+        $fullName = [];
+        foreach ($this->Doctor as $doctor) {
+            $fullName[] = $doctor->getFullName();
+        }
+        return $fullName;
     }
 }

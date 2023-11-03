@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Speciality;
 use App\Form\SpecialityType;
+use App\Repository\DoctorRepository;
 use App\Repository\SpecialityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,10 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class SpecialityController extends AbstractController
 {
     #[Route('/', name: 'app_speciality_index', methods: ['GET'])]
-    public function index(SpecialityRepository $specialityRepository): Response
+    public function index(SpecialityRepository $specialityRepository, DoctorRepository $doctorRepository): Response
     {
         return $this->render('speciality/index.html.twig', [
             'specialities' => $specialityRepository->findAll(),
+            'doctors' => $doctorRepository->findAll()
+
         ]);
     }
 

@@ -14,8 +14,16 @@ class SpecialityType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Type_Speciality')
-            ->add('hidden')
+            ->add('Type_Speciality',
+                EntityType::class,
+                [
+                    'label' => 'Tipus especialitat',
+                    'required' => true,
+                    'class' => Speciality::class,
+                    'choice_label' => 'getTypeSpeciality',
+                    'multiple' => false,
+                    'expanded' => false,
+                ])
             ->add(
                 'doctor',
                 EntityType::class,
