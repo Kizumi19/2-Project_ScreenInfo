@@ -54,7 +54,7 @@ class SpecialityController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_speciality_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Speciality $speciality, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Speciality $speciality, DoctorRepository $doctorRepository,  EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(SpecialityType::class, $speciality);
         $form->handleRequest($request);
