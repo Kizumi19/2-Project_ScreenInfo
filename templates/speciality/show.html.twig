@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Speciality{% endblock %}
+{% block title %}Especialitat{% endblock %}
 
 {% block inside_body %}
-    <h1>Speciality</h1>
+    <h1>Especialitat</h1>
 
     <table class="table">
         <tbody>
@@ -18,7 +18,7 @@
     </table>
 
 
-    <a href="{{ path('app_speciality_edit', {'id': speciality.id}) }}">edit</a>
+    <a class="btn btn-primary" href="{{ path('app_speciality_edit', {'id': speciality.id}) }}">Edita</a>
     {{ include('speciality/_delete_form.html.twig') }}
     {{ include('speciality/_back_to_list.html.twig') }}
 

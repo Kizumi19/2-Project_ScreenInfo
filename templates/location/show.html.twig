@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Location{% endblock %}
+{% block title %}Localització{% endblock %}
 
 {% block inside_body %}
-    <h1>Location</h1>
+    <h1>Localització</h1>
 
     <table class="table">
         <tbody>
@@ -12,23 +12,18 @@
                 <td>{{ location.id }}</td>
             </tr>
             <tr>
-                <th>Floor</th>
+                <th>Planta</th>
                 <td>{{ location.floor }}</td>
             </tr>
             <tr>
-                <th>Room</th>
+                <th>Consulta</th>
                 <td>{{ location.room }}</td>
-            </tr>
-            <tr>
-                <th>Hidden</th>
-                <td>{{ location.hidden ? location.hidden|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_location_index') }}">back to list</a>
 
-    <a href="{{ path('app_location_edit', {'id': location.id}) }}">edit</a>
+    <a class="btn btn-primary" href="{{ path('app_location_edit', {'id': location.id}) }}">Edita</a>
 
     {{ include('location/_delete_form.html.twig') }}
     {{ include('doctor/_back_to_list.html.twig') }}
