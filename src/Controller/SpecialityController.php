@@ -3,8 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Speciality;
-use App\Form\SpecialityType;
-use App\Repository\DoctorRepository;
+use App\Form\Speciality1Type;
 use App\Repository\SpecialityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,12 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class SpecialityController extends AbstractController
 {
     #[Route('/', name: 'app_speciality_index', methods: ['GET'])]
-    public function index(SpecialityRepository $specialityRepository, DoctorRepository $doctorRepository): Response
+    public function index(SpecialityRepository $specialityRepository): Response
     {
         return $this->render('speciality/index.html.twig', [
             'specialities' => $specialityRepository->findAll(),
-            'doctors' => $doctorRepository->findAll()
-
         ]);
     }
 
@@ -29,7 +26,7 @@ class SpecialityController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $speciality = new Speciality();
-        $form = $this->createForm(SpecialityType::class, $speciality);
+        $form = $this->createForm(Speciality1Type::class, $speciality);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -54,9 +51,9 @@ class SpecialityController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_speciality_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Speciality $speciality, DoctorRepository $doctorRepository,  EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Speciality $speciality, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(SpecialityType::class, $speciality);
+        $form = $this->createForm(Speciality1Type::class, $speciality);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Especialitats{% endblock %}
+{% block title %}Speciality index{% endblock %}
 
 {% block inside_body %}
-    <h1>Especialitats dels doctors</h1>
+    <h1>Índex d'especialitats</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Doctor/a</th>
-                <th>Tipus especialitat</th>
+                <th>Tipus d'especialitat</th>
                 <th>Accions</th>
             </tr>
         </thead>
@@ -17,12 +17,12 @@
         {% for speciality in specialities %}
             <tr>
                 <td>
-                    {% for nameDoctor in speciality.fullNamesOfDoctors %}
-                        {{ nameDoctor }}
+                    {% for doctor in speciality.doctor %}
+                    {{ doctor.fullName }}
                     {% endfor %}
                 </td>
 
-                <td>{{ speciality.typeSpeciality }}</td>
+                <td>{{ speciality.TypeSpeciality }}</td>
                 <td>
                     <div class="btn-group">
                         <a class="btn btn-secondary" href="{{ path('app_speciality_show', {'id': speciality.id}) }}">Mostra</a>
@@ -32,12 +32,11 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">No s'han trobat més resultats</td>
             </tr>
         {% endfor %}
-
         </tbody>
     </table>
 
-    <a class="btn btn-primary" href="{{ path('app_speciality_new') }}">Crear una nova especialitat</a>
+    <a class="btn btn-primary" href="{{ path('app_speciality_new') }}">Crea nova especialitat</a>
 {% endblock %}

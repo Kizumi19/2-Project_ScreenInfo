@@ -22,5 +22,9 @@
 .boto-personalitzat:hover {
     background-color: #7639b0;  /* To més oscur per als fons */
 }
+.scrollable-list {
+    max-height: 200px; /* Ajusta esto según el tamaño que necesites */
+    overflow-y: auto; /* Esto habilitará el scrollbar si el contenido excede la altura máxima */
+}
 
 

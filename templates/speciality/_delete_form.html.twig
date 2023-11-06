@@ -1,4 +1,4 @@
-<form method="post" action="{{ path('app_speciality_delete', {'id': speciality.id}) }}" onsubmit="return confirm('Estàs segur que vols eliminar aquest element? No es recuperarà?');">
+<form method="post" action="{{ path('app_speciality_delete', {'id': speciality.id}) }}" onsubmit="return confirm('Estàs segur que vols eliminar aquest element? No es recuperarà');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ speciality.id) }}">
-    <button class="btn btn-danger mt-2">Esborra</button>
+    <button class="btn">Esborra</button>
 </form>
