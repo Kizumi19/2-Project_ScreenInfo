@@ -8,7 +8,16 @@
     <table class="table">
         <tbody>
             <tr>
+                <th>Id</th>
                 <td>{{ speciality.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom del doctor</th>
+                <td>
+                    {% for doctor in speciality.doctor %}
+                        {{ doctor.fullName }}
+                    {% endfor %}
+                </td>
             </tr>
             <tr>
                 <th>Tipus especialitat</th>
