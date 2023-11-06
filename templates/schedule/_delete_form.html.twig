@@ -1,4 +1,6 @@
 <form method="post" action="{{ path('app_schedule_delete', {'id': schedule.id}) }}" onsubmit="return confirm('Estàs segur que vols eliminar aquest element? No es recuperarà');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ schedule.id) }}">
-    <button class="btn btn-danger">Esborra</button>
+    <button class="btn btn-danger mt-2">
+        <i class="bi bi-trash"></i>
+        Esborra</button>
 </form>

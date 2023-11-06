@@ -12,25 +12,21 @@
                 <td>{{ doctor.id }}</td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th>Noms</th>
                 <td>{{ doctor.name }}</td>
             </tr>
             <tr>
-                <th>Surname</th>
+                <th>Cognoms</th>
                 <td>{{ doctor.surname }}</td>
             </tr>
-            <tr>
-                <th>Hidden</th>
-                <td>{{ doctor.hidden ? doctor.hidden|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
+
         </tbody>
     </table>
 
-    <a href="{{ path('app_doctor_index') }}">back to list</a>
 
-    <a href="{{ path('app_doctor_edit', {'id': doctor.id}) }}">edit</a>
+    <a class="btn btn-primary" href="{{ path('app_doctor_edit', {'id': doctor.id}) }}">Edita</a>
+    {{ include('doctor/_back_to_list.html.twig') }}
 
     {{ include('doctor/_delete_form.html.twig') }}
-    {{ include('doctor/_back_to_list.html.twig') }}
 
 {% endblock %}
