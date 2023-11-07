@@ -82,7 +82,7 @@ class Location
         return $this->schedules;
     }
 
-    public function addSchedule(Schedule $schedule): static
+    public function addSchedule(Schedule $schedule): self
     {
         if (!$this->schedules->contains($schedule)) {
             $this->schedules->add($schedule);
@@ -92,7 +92,7 @@ class Location
         return $this;
     }
 
-    public function removeSchedule(Schedule $schedule): static
+    public function removeSchedule(Schedule $schedule): self
     {
         if ($this->schedules->removeElement($schedule)) {
             // set the owning side to null (unless already changed)

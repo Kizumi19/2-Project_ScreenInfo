@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Speciality index{% endblock %}
+{% block title %}Index d'especialitats{% endblock %}
 
 {% block inside_body %}
     <h1>Índex d'especialitats</h1>
@@ -8,7 +8,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Doctor/a</th>
                 <th>Tipus d'especialitat</th>
                 <th>Accions</th>
             </tr>
@@ -16,12 +15,6 @@
         <tbody>
         {% for speciality in specialities %}
             <tr>
-                <td>
-                    {% for doctor in speciality.doctor %}
-                    {{ doctor.fullName }}
-                    {% endfor %}
-                </td>
-
                 <td>{{ speciality.TypeSpeciality }}</td>
                 <td>
                     <div class="btn-group">

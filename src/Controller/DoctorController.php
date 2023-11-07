@@ -53,6 +53,7 @@ class DoctorController extends AbstractController
     #[Route('/{id}/edit', name: 'app_doctor_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Doctor $doctor, EntityManagerInterface $entityManager): Response
     {
+
         $form = $this->createForm(DoctorType::class, $doctor);
         $form->handleRequest($request);
 

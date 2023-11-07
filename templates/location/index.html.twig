@@ -8,6 +8,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>Torn</th>
                 <th>Planta</th>
                 <th>Consultes</th>
                 <th>Accions</th>
@@ -16,6 +17,11 @@
         <tbody>
         {% for location in locations %}
             <tr>
+                <td>
+                    {% for schedule in location.schedules %}
+                        {{ schedule.getShift }}
+                    {% endfor %}
+                </td>
                 <td>{{ location.floor }}</td>
                 <td>{{ location.room }}</td>
                 <td>

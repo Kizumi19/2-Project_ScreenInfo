@@ -21,8 +21,8 @@ class Speciality1Type extends AbstractType
                 'entry_type' => DoctorType::class, // El tipus de formulari que controla cada Doctor en la col·lecció
                 'entry_options' => ['label' => false],
                 'allow_add' => true, // Permet afegir nous formularis a la classe Doctor al formulari Speciality
-                'allow_delete' => true, // Permite eliminar formularios Doctor del formulario Speciality
-                'by_reference' => false, // Asegura que Symfony truqui als métodes adder y remover de la entitat
+                'allow_delete' => true, // Permet eliminar formularis Doctor del formulari Speciality
+                'by_reference' => false, // Asegura que Symfony truqui als mètodes adder i remover de la entitat
                  ]);
                 }
 
