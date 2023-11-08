@@ -11,6 +11,9 @@
             <tr>
                 <th>Nom</th>
                 <th>Cognoms</th>
+                <th>Torns</th>
+                <th>Dies</th>
+                <th>Especialitats</th>
                 <th>Accions</th>
             </tr>
         </thead>
@@ -19,6 +22,26 @@
             <tr>
                 <td>{{ doctor.name }}</td>
                 <td>{{ doctor.surname }}</td>
+                <td>
+                    {% for schedule in doctor.schedules %}
+                        {% for shift in schedule.shift %}
+                            {{ shift|trans }}{% if not loop.last %},{% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for schedule in doctor.schedules %}
+                        {% for day in schedule.day %}
+                            {{ day|trans }}{% if not loop.last %},{% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for speciality in doctor.specialities %}
+                        {{ speciality.TypeSpeciality }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+
                 <td>
                     <div class="btn-group">
                         <a class="btn btn-secondary" href="{{ path('app_doctor_show', {'id': doctor.id}) }}">Mostrar</a>

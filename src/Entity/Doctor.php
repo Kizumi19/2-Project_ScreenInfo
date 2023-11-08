@@ -141,6 +141,13 @@ class Doctor
 
         return $this;
     }
-
+    public function  getAllSchedules(): array
+    {
+        $fullSchedule = [];
+        foreach ($this->schedules as $schedule) {
+            $fullSchedule[] = $schedule->getAllSchedules();
+        }
+        return $fullSchedule;
+    }
 
 }

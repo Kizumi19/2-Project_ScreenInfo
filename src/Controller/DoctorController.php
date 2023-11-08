@@ -17,8 +17,26 @@ class DoctorController extends AbstractController
     #[Route('/', name: 'app_doctor_index', methods: ['GET'])]
     public function index(DoctorRepository $doctorRepository): Response
     {
+        $doctors = $doctorRepository->findAll();
+        $fullSchedule = [];
+        $fullSpeciality = [];
+
+        foreach ($doctors as $doctor) {
+            foreach ($doctor->getSchedules() as $schedule) {
+                $fullSchedule[] = $schedule;
+            }
+        }
+        foreach ($doctors as $doctor) {
+            foreach ($doctor->getSpecialities() as $speciality) {
+                $fullSpeciality[] = $speciality;
+            }
+        }
+
         return $this->render('doctor/index.html.twig', [
-            'doctors' => $doctorRepository->findAll(),
+            'doctors' => $doctors,
+            'fullSchedule' => $fullSchedule,
+            'fullSpeciality' => $fullSpeciality,
+
         ]);
     }
 

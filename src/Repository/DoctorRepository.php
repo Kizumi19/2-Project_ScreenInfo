@@ -45,4 +45,14 @@ class DoctorRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function getAllSchedules()
+    {
+        $qb = $this->createQueryBuilder('d')
+            ->leftJoin('d.schedules', 's')
+            ->addSelect('s')
+            ->getQuery();
+
+        return $qb->getResult();
+    }
+
 }
