@@ -43,11 +43,13 @@ class DoctorType extends AbstractType
                 'allow_delete' => true, // Permet eliminar formularis Doctor del formulari Speciality
                 'by_reference' => false, // Asegura que Symfony truqui als mètodes adder i remover de la entitat
             ]);
+
         $builder->add('specialities', EntityType::class, [
+            'label' => 'Especialitat',
             'class' => Speciality::class,
             'choice_label' => 'type_speciality',
             'multiple' => true,
-            'expanded' => false,
+            'expanded' => true,
         ]);
     }
 
