@@ -18,13 +18,18 @@ class LocationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('schedules', CollectionType::class, [
-                'entry_type' => ScheduleType::class, // El tipus de formulari que controla cada Horari en la col·lecció
-                'entry_options' => ['label' => false],
-                'allow_add' => true, // Permet afegir nous formularis a la classe Schedule al formulari Location
-                'allow_delete' => true, // Permite eliminar formularis Schedule del formulari Location
-                'by_reference' => false, // Asegura que Symfony truqui als métodes adder y remover de la entitat
-            ])
+            ->add(
+                'shift',
+                EntityType::class,
+                [
+                    'label' => 'Torn',
+                    'required' => true,
+                    'class' => Schedule::class,
+                    'choice_label' => 'getShift',
+                    'multiple' => false,
+                    'expanded' => false,
+                ]
+            )
 
             ->add(
                 'floor',
