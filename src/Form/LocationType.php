@@ -19,19 +19,6 @@ class LocationType extends AbstractType
     {
         $builder
             ->add(
-                'shift',
-                EntityType::class,
-                [
-                    'label' => 'Torn',
-                    'required' => true,
-                    'class' => Schedule::class,
-                    'choice_label' => 'getShift',
-                    'multiple' => false,
-                    'expanded' => false,
-                ]
-            )
-
-            ->add(
                 'floor',
                 ChoiceType::class,
                 [
@@ -68,6 +55,14 @@ class LocationType extends AbstractType
                     ]
                 ]
             )
+            ->add('schedules', CollectionType::class, [
+                'label' => 'Horaris',
+                'entry_type' => ScheduleEditType::class, // El tipus de formulari que controla cada Doctor en la col·lecció
+                'entry_options' => ['label' => false],
+                'allow_add' => true, // Permet afegir nous formularis a la classe Doctor al formulari Speciality
+                'allow_delete' => true, // Permet eliminar formularis Doctor del formulari Speciality
+                'by_reference' => false, // Asegura que Symfony truqui als mètodes adder i remover de la entitat
+            ])
         ;
     }
 
