@@ -19,7 +19,13 @@
         <tbody>
         {% for schedule in schedules %}
             <tr>
-                <td>{{ schedule.doctor.fullName }}</td>
+                <td>
+                    {% if schedule.doctor is not null %}
+                        {{ schedule.doctor.getFullName() }}
+                    {% else %}
+                        No s'ha assignat aquest horari a cap doctor
+                    {% endif %}
+                </td>
                 <td>
                     {% for day in schedule.day %}
                         {{ day|trans }}{% if not loop.last %},{% endif %}

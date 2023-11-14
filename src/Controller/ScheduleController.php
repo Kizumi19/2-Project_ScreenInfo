@@ -17,14 +17,27 @@ class ScheduleController extends AbstractController
     #[Route('/', name: 'app_schedule_index', methods: ['GET'])]
     public function index(ScheduleRepository $scheduleRepository): Response
     {
+        $schedules = $scheduleRepository->findAll();
+        $fullDoctor = [];
+        foreach ($schedules as $schedule) {
+            $doctor = $schedule->getDoctor();
+            if ($doctor !== null) {
+                foreach ($doctor as $doctorItem) {
+                    $fullDoctor[] = $schedule;
+                }
+            }
+
+        }
         return $this->render('schedule/index.html.twig', [
             'schedules' => $scheduleRepository->findAll(),
+            'fullDoctor' => $fullDoctor,
         ]);
     }
 
     #[Route('/new', name: 'app_schedule_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+
         $schedule = new Schedule();
         $form = $this->createForm(ScheduleType::class, $schedule);
         $form->handleRequest($request);
