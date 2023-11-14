@@ -18,8 +18,8 @@
         {% for location in locations %}
             <tr>
                 <td>
-                    {% for schedule in location.schedules %}
-                        {{ schedule.getShift }}
+                    {% for schedule in location.getSchedules() %}
+                        {{ schedule.getId() }}{% if not loop.last %}, {% endif %}
                     {% endfor %}
                 </td>
                 <td>{{ location.floor }}</td>
