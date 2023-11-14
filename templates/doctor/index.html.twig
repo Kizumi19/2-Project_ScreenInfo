@@ -38,8 +38,9 @@
                 </td>
                 <td>
                     {% for speciality in doctor.specialities %}
-                        {{ speciality.TypeSpeciality }}{% if not loop.last %}, {% endif %}
+                        {{ speciality.getTypeSpeciality() }}
                     {% endfor %}
+
                 </td>
 
                 <td>

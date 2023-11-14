@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Doctor;
 use App\Entity\Schedule;
 use App\Entity\Speciality;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -42,14 +43,20 @@ class DoctorType extends AbstractType
                 'allow_add' => true, // Permet afegir nous formularis a la classe Doctor al formulari Speciality
                 'allow_delete' => true, // Permet eliminar formularis Doctor del formulari Speciality
                 'by_reference' => false, // Asegura que Symfony truqui als mètodes adder i remover de la entitat
-            ]);
+            ])
 
-        $builder->add('specialities', EntityType::class, [
-            'label' => 'Especialitat',
-            'class' => Speciality::class,
-            'choice_label' => 'type_speciality',
-            'multiple' => true,
-            'expanded' => true,
+            ->add('specialities', EntityType::class, [
+                'class' => Speciality::class,
+                'choice_label' => function (Speciality $speciality) {
+                    return $speciality->getTypeSpeciality();
+                },
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('s')
+                        ->where('s.hidden IS NULL')
+                        ->orderBy('s.Type_Speciality', 'ASC');
+                },
+                'multiple' => true,
+                'expanded' => false,
         ]);
     }
 

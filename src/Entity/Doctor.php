@@ -28,7 +28,8 @@ class Doctor
     #[ORM\OneToMany(mappedBy: 'doctor', targetEntity: Schedule::class)]
     private Collection $schedules;
 
-    #[ORM\ManyToMany(targetEntity: Speciality::class, mappedBy: 'Doctor')]
+    #[ORM\ManyToMany(targetEntity: Speciality::class, inversedBy: 'doctors')]
+    #[ORM\JoinTable(name: "speciality_doctor")]
     private Collection $specialities;
 
 
@@ -115,6 +116,16 @@ class Doctor
         return $this;
     }
 
+
+    public function  getAllSchedules(): array
+    {
+        $fullSchedule = [];
+        foreach ($this->schedules as $schedule) {
+            $fullSchedule[] = $schedule->getAllSchedules();
+        }
+        return $fullSchedule;
+    }
+
     /**
      * @return Collection<int, Speciality>
      */
@@ -123,11 +134,18 @@ class Doctor
         return $this->specialities;
     }
 
+    /**
+     * @param Speciality[]|Collection $specialities
+     */
+    public function setSpecialities($specialities): void
+    {
+        $this->specialities = $specialities;
+    }
+
     public function addSpeciality(Speciality $speciality): static
     {
         if (!$this->specialities->contains($speciality)) {
             $this->specialities->add($speciality);
-            $speciality->addDoctor($this);
         }
 
         return $this;
@@ -135,19 +153,9 @@ class Doctor
 
     public function removeSpeciality(Speciality $speciality): static
     {
-        if ($this->specialities->removeElement($speciality)) {
-            $speciality->removeDoctor($this);
-        }
+        $this->specialities->removeElement($speciality);
 
         return $this;
-    }
-    public function  getAllSchedules(): array
-    {
-        $fullSchedule = [];
-        foreach ($this->schedules as $schedule) {
-            $fullSchedule[] = $schedule->getAllSchedules();
-        }
-        return $fullSchedule;
     }
 
 }

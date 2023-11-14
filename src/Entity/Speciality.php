@@ -20,15 +20,17 @@ class Speciality
     #[ORM\Column(length: 255)]
     private ?string $Type_Speciality = null;
 
-    #[ORM\ManyToMany(targetEntity: Doctor::class, inversedBy: 'specialities')]
-    private Collection $Doctor;
+
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $hidden = null;
 
+    #[ORM\ManyToMany(targetEntity: Doctor::class, mappedBy: 'specialities')]
+    private Collection $doctors;
+
     public function __construct()
     {
-        $this->Doctor = new ArrayCollection();
+        $this->doctors = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -48,29 +50,7 @@ class Speciality
         return $this;
     }
 
-    /**
-     * @return Collection<int, Doctor>
-     */
-    public function getDoctor(): Collection
-    {
-        return $this->Doctor;
-    }
 
-    public function addDoctor(Doctor $doctor): static
-    {
-        if (!$this->Doctor->contains($doctor)) {
-            $this->Doctor->add($doctor);
-        }
-
-        return $this;
-    }
-
-    public function removeDoctor(Doctor $doctor): static
-    {
-        $this->Doctor->removeElement($doctor);
-
-        return $this;
-    }
 
     public function getHidden(): ?\DateTimeInterface
     {
@@ -91,9 +71,36 @@ class Speciality
     public function  getFullNamesOfDoctors(): array
     {
         $fullName = [];
-        foreach ($this->Doctor as $doctor) {
+        foreach ($this->doctors as $doctor) {
             $fullName[] = $doctor->getFullName();
         }
         return $fullName;
-    }
+   }
+
+   /**
+    * @return Collection<int, Doctor>
+    */
+   public function getDoctors(): Collection
+   {
+       return $this->doctors;
+   }
+
+   public function addDoctor(Doctor $doctor): static
+   {
+       if (!$this->doctors->contains($doctor)) {
+           $this->doctors->add($doctor);
+           $doctor->addSpeciality($this);
+       }
+
+       return $this;
+   }
+
+   public function removeDoctor(Doctor $doctor): static
+   {
+       if ($this->doctors->removeElement($doctor)) {
+           $doctor->removeSpeciality($this);
+       }
+
+       return $this;
+   }
 }

@@ -71,11 +71,14 @@ class DoctorController extends AbstractController
     #[Route('/{id}/edit', name: 'app_doctor_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Doctor $doctor, EntityManagerInterface $entityManager): Response
     {
-
         $form = $this->createForm(DoctorType::class, $doctor);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Actualizar las relaciones de especialidades del doctor
+            $selectedSpecialities = $form->get('specialities')->getData();
+            $doctor->setSpecialities($selectedSpecialities);
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_doctor_index', [], Response::HTTP_SEE_OTHER);
@@ -83,9 +86,11 @@ class DoctorController extends AbstractController
 
         return $this->render('doctor/edit.html.twig', [
             'doctor' => $doctor,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
+
+
 
     #[Route('/{id}', name: 'app_doctor_delete', methods: ['POST'])]
     public function delete(Request $request, Doctor $doctor, EntityManagerInterface $entityManager): Response
