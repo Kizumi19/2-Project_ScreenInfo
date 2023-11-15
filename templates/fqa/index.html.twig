@@ -1,9 +1,5 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Hello FQAController!{% endblock %}
-
-{% block body %}
-    {% include('header.html.twig') %}
+{% block inside_body %}
 
     <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
@@ -19,6 +15,5 @@
         <li>Your template at <code><a href="{{ 'C:/wamp/www/2-Project_ScreenInfo/templates/fqa/admin_menu.html.twig'|file_link(0) }}">templates/fqa/index.html.twig</a></code></li>
     </ul>
 </div>
-    {% include('footer.html.twig') %}
 
 {% endblock %}

@@ -23,6 +23,7 @@ class LocationType extends AbstractType
                 ChoiceType::class,
                 [
                     'label' => 'Planta',
+                    'label_attr' => ['style' => 'font-weight: bold; color: #333; font-size: 18px;'],
                     'required' => true,
                     'multiple' => false,
                     'expanded' => false,
@@ -33,30 +34,22 @@ class LocationType extends AbstractType
                         '3' => '3',
                         '4' => '4',
                         '5' => '5',
-
                     ]
                 ]
 
             )
             ->add(
                 'room',
-                ChoiceType::class,
+                TextType::class,
                 [
                     'label' => 'Consulta',
+                    'label_attr' => ['style' => 'font-weight: bold; color: #333; font-size: 18px;'],
                     'required' => true,
-                    'multiple' => false,
-                    'expanded' => false,
-                    'choices' => [
-                        '1' => '1',
-                        '2' => '2',
-                        '3' => '3',
-                        '4' => '4',
-                        '5' => '5',
-                    ]
                 ]
             )
             ->add('schedules', CollectionType::class, [
                 'label' => 'Horaris',
+                'label_attr' => ['style' => 'font-weight: bold; color: #333; font-size: 18px;'],
                 'entry_type' => ScheduleEditType::class, // El tipus de formulari que controla cada Doctor en la col·lecció
                 'entry_options' => ['label' => false],
                 'allow_add' => true, // Permet afegir nous formularis a la classe Doctor al formulari Speciality

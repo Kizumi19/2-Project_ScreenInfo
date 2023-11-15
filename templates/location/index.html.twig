@@ -10,8 +10,6 @@
             <tr>
                 <th>Planta</th>
                 <th>Consultes</th>
-                <th>Torn</th>
-                <th>Torn</th>
                 <th>Accions</th>
             </tr>
         </thead>
@@ -20,23 +18,6 @@
             <tr>
                 <td>{{ location.floor }}</td>
                 <td>{{ location.room }}</td>
-                <td>
-                    {% for schedule in location.getSchedules() %}
-                        {% for shift in schedule.getShift() %}
-                            {{ shift|trans }}{% if not loop.last %}, {% endif %}
-                        {% endfor %}
-                        {% if not loop.last %}<br>{% endif %}
-                    {% endfor %}
-                </td>
-
-                <td>
-                    {% for schedule in location.getSchedules() %}
-                        {% for day in schedule.getDay() %}
-                            {{ day|trans }}{% if not loop.last %}, {% endif %}
-                        {% endfor %}
-                        {% if not loop.last %}<br>{% endif %}
-                    {% endfor %}
-                </td>
                 <td>
                     <div class="btn-group">
                         <a class="btn btn-secondary" href="{{ path('app_location_show', {'id': location.id}) }}">Mostra</a>

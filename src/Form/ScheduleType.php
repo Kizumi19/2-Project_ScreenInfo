@@ -21,6 +21,7 @@ class ScheduleType extends AbstractType
                 EntityType::class,
                 [
                     'label' => 'Doctor',
+                    'label_attr' => ['style' => 'font-weight: bold; color: #333; font-size: 18px;'],
                     'required' => true,
                     'class' => Doctor::class,
                     'choice_label' => 'getFullName',
@@ -33,6 +34,7 @@ class ScheduleType extends AbstractType
                 ChoiceType::class,
                 [
                     'label' => 'Dies',
+                    'label_attr' => ['style' => 'font-weight: bold; color: #333; font-size: 18px;'],
                     'required' => true,
                     'multiple' => true,
                     'expanded' => true,
@@ -47,6 +49,7 @@ class ScheduleType extends AbstractType
                 ChoiceType::class,
                 [
                     'label' => 'Dies',
+                    'label_attr' => ['style' => 'font-weight: bold; color: #333; font-size: 18px;'],
                     'required' => true,
                     'multiple' => true,
                     'expanded' => true,

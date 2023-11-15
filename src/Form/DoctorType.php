@@ -24,6 +24,7 @@ class DoctorType extends AbstractType
                 TextType::class,
                 [
                     'label' => 'Nom',
+                    'label_attr' => ['style' => 'font-weight: bold; color: #333; font-size: 18px;'],
                     'required' => true,
                 ]
             )
@@ -32,12 +33,14 @@ class DoctorType extends AbstractType
                 TextType::class,
                 [
                     'label' => 'Cognoms',
+                    'label_attr' => ['style' => 'font-weight: bold; color: #333; font-size: 18px;'],
                     'required' => true,
                 ]
             )
 
             ->add('schedules', CollectionType::class, [
                 'label' => 'Horaris',
+                'label_attr' => ['style' => 'font-weight: bold; color: #333; font-size: 18px;'],
                 'entry_type' => ScheduleEditType::class, // El tipus de formulari que controla cada Doctor en la col·lecció
                 'entry_options' => ['label' => false],
                 'allow_add' => true, // Permet afegir nous formularis a la classe Doctor al formulari Speciality
@@ -46,6 +49,8 @@ class DoctorType extends AbstractType
             ])
 
             ->add('specialities', EntityType::class, [
+                'label' => 'Especialitats',
+                'label_attr' => ['style' => 'font-weight: bold; color: #333; font-size: 18px;'],
                 'class' => Speciality::class,
                 'choice_label' => function (Speciality $speciality) {
                     return $speciality->getTypeSpeciality();
@@ -56,7 +61,10 @@ class DoctorType extends AbstractType
                         ->orderBy('s.Type_Speciality', 'ASC');
                 },
                 'multiple' => true,
-                'expanded' => false,
+                'expanded' => true,
+                'attr' => [
+                    'class' => 'form-check-inline',
+                ],
         ]);
     }
 

@@ -20,8 +20,11 @@ class Speciality1Type extends AbstractType
             ->add('Type_Speciality',
                 TextType::class,
                 [
-                    'label' => 'Tipus especialitat']);
+                    'label' => 'Tipus especialitat',
+                    'label_attr' => ['style' => 'font-weight: bold; color: #333; font-size: 18px;']
+                    ]);
                 }
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {
