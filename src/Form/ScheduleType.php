@@ -22,7 +22,7 @@ class ScheduleType extends AbstractType
                 [
                     'label' => 'Doctor',
                     'label_attr' => ['style' => 'font-weight: bold; color: #333; font-size: 18px;'],
-                    'required' => true,
+                    'required' => false,
                     'class' => Doctor::class,
                     'choice_label' => 'getFullName',
                     'multiple' => false,

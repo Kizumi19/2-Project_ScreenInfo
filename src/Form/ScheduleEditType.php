@@ -18,6 +18,7 @@ class ScheduleEditType extends AbstractType
                 ChoiceType::class,
                 [
                     'label' => 'Dies',
+                    'label_attr' => ['style' => 'font-weight: bold; color: #333; font-size: 15px;'],
                     'required' => true,
                     'multiple' => true,
                     'expanded' => true,
@@ -32,6 +33,7 @@ class ScheduleEditType extends AbstractType
                 ChoiceType::class,
                 [
                     'label' => 'Dies',
+                    'label_attr' => ['style' => 'font-weight: bold; color: #333; font-size: 15px;'],
                     'required' => true,
                     'multiple' => true,
                     'expanded' => true,

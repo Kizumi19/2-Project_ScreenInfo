@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Doctor;
+use App\Entity\Schedule;
 use App\Form\DoctorType;
 use App\Repository\DoctorRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -44,6 +45,9 @@ class DoctorController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $doctor = new Doctor();
+        $schedule = new Schedule();
+        $doctor->addSchedule($schedule);
+
         $form = $this->createForm(DoctorType::class, $doctor);
         $form->handleRequest($request);
 

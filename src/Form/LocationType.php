@@ -46,17 +46,7 @@ class LocationType extends AbstractType
                     'label_attr' => ['style' => 'font-weight: bold; color: #333; font-size: 18px;'],
                     'required' => true,
                 ]
-            )
-            ->add('schedules', CollectionType::class, [
-                'label' => 'Horaris',
-                'label_attr' => ['style' => 'font-weight: bold; color: #333; font-size: 18px;'],
-                'entry_type' => ScheduleEditType::class, // El tipus de formulari que controla cada Doctor en la col·lecció
-                'entry_options' => ['label' => false],
-                'allow_add' => true, // Permet afegir nous formularis a la classe Doctor al formulari Speciality
-                'allow_delete' => true, // Permet eliminar formularis Doctor del formulari Speciality
-                'by_reference' => false, // Asegura que Symfony truqui als mètodes adder i remover de la entitat
-            ])
-        ;
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
