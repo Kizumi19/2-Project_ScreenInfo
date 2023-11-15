@@ -91,4 +91,5 @@ class ScheduleController extends AbstractController
 
         return $this->redirectToRoute('app_schedule_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }

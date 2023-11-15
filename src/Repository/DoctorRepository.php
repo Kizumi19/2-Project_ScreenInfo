@@ -55,4 +55,19 @@ class DoctorRepository extends ServiceEntityRepository
         return $qb->getResult();
     }
 
+    public function findByPageAndName($page = 1, $pageSize = 10, $name = '')
+    {
+        $queryBuilder = $this->createQueryBuilder('d');
+
+        if (!empty($name)) {
+            $queryBuilder->andWhere('d.name LIKE :name')
+                ->setParameter('name', '%' . $name . '%');
+        }
+
+        $queryBuilder->setFirstResult(($page - 1) * $pageSize)
+            ->setMaxResults($pageSize);
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
 }

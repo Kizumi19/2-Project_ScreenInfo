@@ -106,4 +106,19 @@ class DoctorController extends AbstractController
 
         return $this->redirectToRoute('app_doctor_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/list/{page}', name: 'doctor_list', methods: ['GET'])]
+    public function doctorList(DoctorRepository $doctorRepository, $page = 1, Request $request): Response
+    {
+        $pageSize = 10;
+        $name = $request->query->get('name', '');
+
+        $doctors = $doctorRepository->findByPageAndName($page, $pageSize, $name);
+
+        return $this->render('doctor/index.html.twig', [
+            'doctors' => $doctors,
+            'currentPage' => $page,
+            'name' => $name
+        ]);
+    }
 }
