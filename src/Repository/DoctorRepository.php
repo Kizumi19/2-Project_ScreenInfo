@@ -70,4 +70,16 @@ class DoctorRepository extends ServiceEntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
+    // En DoctorRepository.php
+
+    public function findBySearchTerm($searchTerm)
+    {
+        return $this->createQueryBuilder('d')
+            ->where('d.name LIKE :searchTerm OR d.surname LIKE :searchTerm')
+            ->setParameter('searchTerm', '%' . $searchTerm . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
+
 }

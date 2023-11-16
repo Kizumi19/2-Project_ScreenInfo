@@ -5,7 +5,15 @@
 {% block inside_body %}
 
     <h1>Llistat de doctors</h1>
+    <div class="row">
+        <div class="form-group">
+            <label for="search">Buscar Doctor:</label>
+            <input type="text" id="search" class="form-control">
+        </div>
 
+        <div id="search-results">
+        </div>
+    </div>
     <table class="table">
         <thead>
             <tr>
@@ -99,6 +107,52 @@
         </ul>
     </nav>
 
-    <a class="btn btn-primary" href="{{ path('app_doctor_new') }}">Crear un nou doctor/a</a>
 
+    <a class="btn btn-primary" href="{{ path('app_doctor_new') }}">Crear un nou doctor/a</a>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#search').on('input', function() {
+                var searchTerm = $(this).val();
+
+                $.ajax({
+                    url: '{{ path('app_doctor_search_ajax') }}',
+                    method: 'GET',
+                    data: { search: searchTerm },
+                    dataType: 'json',
+                    success: function(data) {
+                        updateTable(data);
+                    }
+                });
+            });
+        });
+
+        function updateTable(data) {
+            var tableBody = $('.table tbody');
+            tableBody.empty();
+
+            if (data.length > 0) {
+                data.forEach(function(doctor) {
+                    var row = '<tr>' +
+                        '<td>' + doctor.name + '</td>' +
+                        '<td>' + doctor.surname + '</td>' +
+                        // Agrega aquí más columnas según tus datos
+                        '<td>' +
+                        '<a class="btn btn-secondary" href="/doctor/' + doctor.id + '">Mostrar</a>' +
+                        '<a class="btn btn-secondary" href="/doctor/' + doctor.id + '/edit">Editar</a>' +
+                        '</td>' +
+                        '</tr>';
+                    tableBody.append(row);
+                });
+            } else {
+                tableBody.html('<tr><td colspan="6">No hi han resultats.</td></tr>');
+            }
+        }
+
+
+        console.log('{{ path('app_doctor_search_ajax') }}');
+
+    </script>
 {% endblock %}
+
+

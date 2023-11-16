@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/doctor')]
 class DoctorController extends AbstractController
@@ -77,7 +78,7 @@ class DoctorController extends AbstractController
     }
 
 
-    #[Route('/{id}', name: 'app_doctor_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_doctor_show', methods: ['GET'], requirements: ['id' => '\d+'])]
     public function show(Doctor $doctor): Response
     {
         return $this->render('doctor/show.html.twig', [
@@ -121,7 +122,7 @@ class DoctorController extends AbstractController
     }
 
     #[Route('/list/{page}', name: 'doctor_list', methods: ['GET'])]
-    public function doctorList(DoctorRepository $doctorRepository, $page = 1, Request $request, PaginatorInterface $paginator): Response
+    public function doctorList(DoctorRepository $doctorRepository, Request $request, PaginatorInterface $paginator, $page = 1): Response
     {
         $pageSize = 10; // Número de elementos por página
 
@@ -142,4 +143,47 @@ class DoctorController extends AbstractController
             'currentPage' => $page,
         ]);
     }
+    #[Route('/search', name: 'app_doctor_search', methods: ['GET'])]
+    public function search(Request $request, DoctorRepository $doctorRepository, PaginatorInterface $paginator): Response
+    {
+        $pageSize = 10; // Número de elementos por página
+
+        // Obtén el término de búsqueda desde la solicitud
+        $searchTerm = $request->query->get('search');
+
+        // Crea una consulta personalizada para buscar doctores por nombre o apellido
+        $query = $doctorRepository->createQueryBuilder('d')
+            ->andWhere('d.name LIKE :search OR d.surname LIKE :search')
+            ->setParameter('search', '%' . $searchTerm . '%')
+            ->orderBy('d.id', 'ASC')
+            ->getQuery();
+
+        // Pagina los resultados utilizando el paginador
+        $doctors = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            $pageSize
+        );
+
+        return $this->render('doctor/index.html.twig', [
+            'doctors' => $doctors,
+        ]);
+    }
+    #[Route('/search_ajax', name: 'app_doctor_search_ajax', methods: ['GET'])]
+    public function searchAjax(Request $request, DoctorRepository $doctorRepository): JsonResponse {
+        $searchTerm = $request->query->get('search');
+        $results = $doctorRepository->findBySearchTerm($searchTerm);
+
+        $jsonData = [];
+        foreach ($results as $result) {
+            $jsonData[] = [
+                'id' => $result->getId(),
+                'name' => $result->getName(),
+                'surname' => $result->getSurname(),
+            ];
+        }
+
+        return $this->json($jsonData);
+    }
+
 }
