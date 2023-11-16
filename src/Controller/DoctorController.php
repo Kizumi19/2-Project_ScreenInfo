@@ -45,14 +45,16 @@ class DoctorController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $doctor = new Doctor();
-        $schedule = new Schedule();
-        $doctor->addSchedule($schedule);
+        // Eliminar esta línea si la estás utilizando
+        // $schedule = new Schedule();
+        // $doctor->addSchedule($schedule);
 
         $form = $this->createForm(DoctorType::class, $doctor);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($doctor);
+            // No es necesario persistir manualmente las entidades Schedule aquí
             $entityManager->flush();
 
             return $this->redirectToRoute('app_doctor_index', [], Response::HTTP_SEE_OTHER);
@@ -63,6 +65,7 @@ class DoctorController extends AbstractController
             'form' => $form,
         ]);
     }
+
 
     #[Route('/{id}', name: 'app_doctor_show', methods: ['GET'])]
     public function show(Doctor $doctor): Response

@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 
 class DoctorType extends AbstractType
 {
@@ -37,6 +38,15 @@ class DoctorType extends AbstractType
                     'required' => true,
                 ]
             )
+
+            ->add('scheduleButton', ButtonType::class, [
+                'label' => 'Canviar els horaris',
+                'attr' => [
+                    'class' => 'btn btn-primary',
+                    'onclick' => 'window.open("/schedule/", "_blank");',
+                ],
+            ])
+
 
 
             ->add('specialities', EntityType::class, [
