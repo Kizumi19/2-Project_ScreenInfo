@@ -49,7 +49,7 @@ class SpecialityRepository extends ServiceEntityRepository
     public function findBySearchTerm($searchTerm)
     {
         return $this->createQueryBuilder('d')
-            ->where('d.name LIKE :searchTerm OR d.Type_Speciality LIKE :searchTerm')
+            ->where('d.Type_Speciality LIKE :searchTerm')
             ->setParameter('searchTerm', '%' . $searchTerm . '%')
             ->getQuery()
             ->getResult();

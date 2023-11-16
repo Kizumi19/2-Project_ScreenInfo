@@ -45,4 +45,12 @@ class ScheduleRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function findBySearchTerm($searchTerm)
+    {
+        return $this->createQueryBuilder('d')
+            ->where('d.day LIKE :searchTerm OR d.shift LIKE :searchTerm')
+            ->setParameter('searchTerm', '%' . $searchTerm . '%')
+            ->getQuery()
+            ->getResult();
+    }
 }
