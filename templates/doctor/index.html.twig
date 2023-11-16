@@ -5,13 +5,14 @@
 {% block inside_body %}
 
     <h1>Llistat de doctors</h1>
-    <div class="row">
-        <div class="form-group">
-            <label for="search">Buscar Doctor:</label>
-            <input type="text" id="search" class="form-control">
-        </div>
-
-        <div id="search-results">
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="input-group mt-2">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input type="text" id="search" class="form-control" placeholder="Buscar Doctor o altres...">
+                <div class="input-group-append">
+                </div>
+            </div>
         </div>
     </div>
     <table class="table">
@@ -126,8 +127,6 @@
             });
         });
     </script>
-
-        console.log('{{ path('app_doctor_search_ajax') }}');
 
     </script>
 {% endblock %}
