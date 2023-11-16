@@ -143,47 +143,39 @@ class DoctorController extends AbstractController
             'currentPage' => $page,
         ]);
     }
-    #[Route('/search', name: 'app_doctor_search', methods: ['GET'])]
-    public function search(Request $request, DoctorRepository $doctorRepository, PaginatorInterface $paginator): Response
-    {
-        $pageSize = 10; // Número de elementos por página
 
-        // Obtén el término de búsqueda desde la solicitud
-        $searchTerm = $request->query->get('search');
-
-        // Crea una consulta personalizada para buscar doctores por nombre o apellido
-        $query = $doctorRepository->createQueryBuilder('d')
-            ->andWhere('d.name LIKE :search OR d.surname LIKE :search')
-            ->setParameter('search', '%' . $searchTerm . '%')
-            ->orderBy('d.id', 'ASC')
-            ->getQuery();
-
-        // Pagina los resultados utilizando el paginador
-        $doctors = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', 1),
-            $pageSize
-        );
-
-        return $this->render('doctor/index.html.twig', [
-            'doctors' => $doctors,
-        ]);
-    }
-    #[Route('/search_ajax', name: 'app_doctor_search_ajax', methods: ['GET'])]
     public function searchAjax(Request $request, DoctorRepository $doctorRepository): JsonResponse {
         $searchTerm = $request->query->get('search');
         $results = $doctorRepository->findBySearchTerm($searchTerm);
 
         $jsonData = [];
-        foreach ($results as $result) {
+        foreach ($results as $doctor) {
+            $schedules = []; // Define $schedules aquí
+            foreach ($doctor->getSchedules() as $schedule) {
+                $schedules[] = [
+                    'shift' => $schedule->getShift(),
+                    'day' => $schedule->getDay()
+                ];
+            }
+
+
+            $specialities = [];
+            foreach ($doctor->getSpecialities() as $speciality) {
+
+                $specialities[] = $speciality->getTypeSpeciality();
+            }
+
             $jsonData[] = [
-                'id' => $result->getId(),
-                'name' => $result->getName(),
-                'surname' => $result->getSurname(),
+                'id' => $doctor->getId(),
+                'name' => $doctor->getName(),
+                'surname' => $doctor->getSurname(),
+                'schedules' => $schedules,
+                'specialities' => $specialities,
             ];
         }
 
         return $this->json($jsonData);
     }
+
 
 }
