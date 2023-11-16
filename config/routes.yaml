@@ -8,3 +8,8 @@ app_doctor_search_ajax:
     path: /doctor/search_ajax
     controller: App\Controller\DoctorController::searchAjax
     methods: [GET]
+
+app_speciality_search_ajax:
+    path: /speciality/search_ajax
+    controller: App\Controller\SpecialityController::searchAjax
+    methods: [GET]

@@ -124,14 +124,12 @@ class DoctorController extends AbstractController
     #[Route('/list/{page}', name: 'doctor_list', methods: ['GET'])]
     public function doctorList(DoctorRepository $doctorRepository, Request $request, PaginatorInterface $paginator, $page = 1): Response
     {
-        $pageSize = 10; // Número de elementos por página
+        $pageSize = 10;
 
-        // Obtén la consulta sin ejecutarla aún
         $query = $doctorRepository->createQueryBuilder('d')
             ->orderBy('d.id', 'ASC')
             ->getQuery();
 
-        // Pagina los resultados utilizando el paginador
         $doctors = $paginator->paginate(
             $query,
             $page,

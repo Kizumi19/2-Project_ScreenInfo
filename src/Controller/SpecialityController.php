@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Speciality;
 use App\Form\Speciality1Type;
+use App\Repository\DoctorRepository;
 use App\Repository\SpecialityRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,11 +17,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class SpecialityController extends AbstractController
 {
     #[Route('/', name: 'app_speciality_index', methods: ['GET'])]
-    public function index(SpecialityRepository $specialityRepository): Response
+    public function index(SpecialityRepository $specialityRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        return $this->render('speciality/index.html.twig', [
+        $pageSize = 10; // Número de elementos por página
 
-            'specialities' => $specialityRepository->findAll(),
+        // Obtén la consulta sin ejecutarla aún
+        $query = $specialityRepository->createQueryBuilder('d')
+            ->orderBy('d.id', 'ASC')
+            ->getQuery();
+
+        // Pagina los resultados utilizando el paginador
+        $specialities = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            $pageSize
+        );
+
+        return $this->render('speciality/index.html.twig', [
+            'specialities' => $specialities,
         ]);
     }
 
@@ -43,7 +58,7 @@ class SpecialityController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_speciality_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_speciality_show', methods: ['GET'], requirements: ['id' => '\d+'])]
     public function show(Speciality $speciality): Response
     {
         return $this->render('speciality/show.html.twig', [
@@ -80,4 +95,26 @@ class SpecialityController extends AbstractController
 
         return $this->redirectToRoute('app_speciality_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/list/{page}', name: 'speciality_list', methods: ['GET'])]
+    public function specialityList(SpecialityRepository $specialityRepository, PaginatorInterface $paginator, Request $request, int $page = 1): Response
+    {
+        $pageSize = 10;
+
+        $query = $specialityRepository->createQueryBuilder('s')
+            ->orderBy('s.id', 'ASC')
+            ->getQuery();
+
+        $specialities = $paginator->paginate(
+            $query,
+            $page,
+            $pageSize
+        );
+
+        return $this->render('speciality/index.html.twig', [
+            'specialities' => $specialities,
+        ]);
+    }
+
+
 }

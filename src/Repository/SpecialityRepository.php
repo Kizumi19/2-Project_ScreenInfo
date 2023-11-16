@@ -45,4 +45,13 @@ class SpecialityRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function findBySearchTerm($searchTerm)
+    {
+        return $this->createQueryBuilder('d')
+            ->where('d.name LIKE :searchTerm OR d.Type_Speciality LIKE :searchTerm')
+            ->setParameter('searchTerm', '%' . $searchTerm . '%')
+            ->getQuery()
+            ->getResult();
+    }
 }

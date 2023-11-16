@@ -30,6 +30,66 @@
         {% endfor %}
         </tbody>
     </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
 
+            {% set currentPage = specialities.currentPageNumber %}
+            {% set pageCount = specialities.pageCount %}
+
+            {# Botó de pàgina anterior #}
+            {% if currentPage > 1 %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ path('speciality_list', {'page': currentPage - 1}) }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">&laquo;</span>
+                </li>
+            {% endif %}
+
+            {# Números de pàgina #}
+            {% for i in 1..pageCount %}
+                <li class="page-item {% if i == currentPage %}active{% endif %}">
+                    <a class="page-link" href="{{ path('speciality_list', {'page': i}) }}">{{ i }}</a>
+                </li>
+            {% endfor %}
+
+            {# Botó de pàgina següent #}
+            {% if currentPage < pageCount %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ path('speciality_list', {'page': currentPage + 1}) }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">&raquo;</span>
+                </li>
+            {% endif %}
+
+        </ul>
+    </nav>
     <a class="btn btn-primary" href="{{ path('app_speciality_new') }}">Crea nova especialitat</a>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#search').on('input', function() {
+                var searchTerm = $(this).val().toLowerCase();
+
+                $('.table tbody tr').each(function() {
+                    var lineStr = $(this).text().toLowerCase();
+                    if (lineStr.indexOf(searchTerm) === -1) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                });
+            });
+        });
+    </script>
+
+    </script>
 {% endblock %}
