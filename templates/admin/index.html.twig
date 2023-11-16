@@ -28,18 +28,17 @@
 
                     <p>Aquestes modificacions són generals i no s'enfoquen en un doctor individual com a la secció anterior.</p>
                 <li class="list-group-item">
-                    <a class="btn btn-primary disabled" href="{{ path('app_location_index') }}">Editar plantes i consultes</a>
+                    <span class="d-inline-block" tabindex="0" data-bs-content="Contacta amb l'administrador per fer canvis">
+                        <a class="btn btn-primary disabled" href="{{ path('app_location_index') }}">Editar plantes i consultes</a>
+                    </span>
                 </li>
                 <li class="list-group-item">
                     <a class="btn btn-primary" href="{{ path('app_speciality_index') }}">Editar especialitats</a>
                 </li>
-                <li class="list-group-item">
-                    <a class="btn btn-primary" href="{{ path('app_schedule_index') }}">Editar horaris</a>
-                </li>
+
             </ul>
         </div>
     </div>
 
 </div>
-
 {% endblock %}
