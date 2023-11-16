@@ -55,7 +55,50 @@
             </tr>
         {% endfor %}
         </tbody>
+
     </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+
+            {% set currentPage = doctors.currentPageNumber %}
+            {% set pageCount = doctors.pageCount %}
+
+            {# Botó de pàgina anterior #}
+            {% if currentPage > 1 %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ path('doctor_list', {'page': currentPage - 1}) }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">&laquo;</span>
+                </li>
+            {% endif %}
+
+            {# Números de pàgina #}
+            {% for i in 1..pageCount %}
+                <li class="page-item {% if i == currentPage %}active{% endif %}">
+                    <a class="page-link" href="{{ path('doctor_list', {'page': i}) }}">{{ i }}</a>
+                </li>
+            {% endfor %}
+
+            {# Botó de pàgina següent #}
+            {% if currentPage < pageCount %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ path('doctor_list', {'page': currentPage + 1}) }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">&raquo;</span>
+                </li>
+            {% endif %}
+
+        </ul>
+    </nav>
 
     <a class="btn btn-primary" href="{{ path('app_doctor_new') }}">Crear un nou doctor/a</a>
+
 {% endblock %}

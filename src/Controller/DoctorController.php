@@ -11,14 +11,28 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/doctor')]
 class DoctorController extends AbstractController
 {
     #[Route('/', name: 'app_doctor_index', methods: ['GET'])]
-    public function index(DoctorRepository $doctorRepository): Response
+    public function index(DoctorRepository $doctorRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $doctors = $doctorRepository->findAll();
+        $pageSize = 10; // Número de elementos por página
+
+        // Obtén la consulta sin ejecutarla aún
+        $query = $doctorRepository->createQueryBuilder('d')
+            ->orderBy('d.id', 'ASC')
+            ->getQuery();
+
+        // Pagina los resultados utilizando el paginador
+        $doctors = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            $pageSize
+        );
+
         $fullSchedule = [];
         $fullSpeciality = [];
 
@@ -27,6 +41,7 @@ class DoctorController extends AbstractController
                 $fullSchedule[] = $schedule;
             }
         }
+
         foreach ($doctors as $doctor) {
             foreach ($doctor->getSpecialities() as $speciality) {
                 $fullSpeciality[] = $speciality;
@@ -37,7 +52,6 @@ class DoctorController extends AbstractController
             'doctors' => $doctors,
             'fullSchedule' => $fullSchedule,
             'fullSpeciality' => $fullSpeciality,
-
         ]);
     }
 
@@ -107,17 +121,25 @@ class DoctorController extends AbstractController
     }
 
     #[Route('/list/{page}', name: 'doctor_list', methods: ['GET'])]
-    public function doctorList(DoctorRepository $doctorRepository, $page = 1, Request $request): Response
+    public function doctorList(DoctorRepository $doctorRepository, $page = 1, Request $request, PaginatorInterface $paginator): Response
     {
-        $pageSize = 10;
-        $name = $request->query->get('name', '');
+        $pageSize = 10; // Número de elementos por página
 
-        $doctors = $doctorRepository->findByPageAndName($page, $pageSize, $name);
+        // Obtén la consulta sin ejecutarla aún
+        $query = $doctorRepository->createQueryBuilder('d')
+            ->orderBy('d.id', 'ASC')
+            ->getQuery();
+
+        // Pagina los resultados utilizando el paginador
+        $doctors = $paginator->paginate(
+            $query,
+            $page,
+            $pageSize
+        );
 
         return $this->render('doctor/index.html.twig', [
             'doctors' => $doctors,
             'currentPage' => $page,
-            'name' => $name
         ]);
     }
 }
