@@ -23,5 +23,11 @@ class IndexController extends AbstractController
 
         ]);
     }
+    #[Route('/screen', name: 'app_index_screen')]
+    public function screen(): Response
+    {
+        return $this->render('screen/index.html.twig', [
 
+        ]);
+    }
 }
