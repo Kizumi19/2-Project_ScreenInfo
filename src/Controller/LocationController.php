@@ -6,6 +6,7 @@ use App\Entity\Location;
 use App\Form\LocationType;
 use App\Repository\LocationRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -81,5 +82,25 @@ class LocationController extends AbstractController
         }
 
         return $this->redirectToRoute('app_location_index', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/list/{page}', name: 'location_list', methods: ['GET'])]
+    public function locationList(LocationRepository $locationRepository, PaginatorInterface $paginator, Request $request, int $page = 1): Response
+    {
+        $pageSize = 10;
+
+        $query = $locationRepository->createQueryBuilder('s')
+            ->orderBy('s.id', 'ASC')
+            ->getQuery();
+
+        $locations = $paginator->paginate(
+            $query,
+            $page,
+            $pageSize
+        );
+
+        return $this->render('speciality/index.html.twig', [
+            'locations' => $locations,
+            'currentPage' => $page,
+        ]);
     }
 }

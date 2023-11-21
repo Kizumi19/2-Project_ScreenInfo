@@ -11,5 +11,10 @@ app_doctor_search_ajax:
 
 app_speciality_search_ajax:
     path: /speciality/search_ajax
-    controller: App\Controller\SpecialityController::searchAjax
+    controller: App\Controller\SpecialityController::specialityList
+    methods: [GET]
+
+app_location_search_ajax:
+    path: /location/list/{page}
+    controller: App\Controller\LocationController::locationList
     methods: [GET]

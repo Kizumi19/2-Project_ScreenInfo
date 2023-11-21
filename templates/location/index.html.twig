@@ -34,5 +34,22 @@
     </table>
 
     <a class="btn btn-primary" href="{{ path('app_location_new') }}">Crear nou</a>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#search').on('input', function() {
+                var searchTerm = $(this).val().toLowerCase();
+
+                $('.table tbody tr').each(function() {
+                    var lineStr = $(this).text().toLowerCase();
+                    if (lineStr.indexOf(searchTerm) === -1) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                });
+            });
+        });
+    </script>
 
 {% endblock %}

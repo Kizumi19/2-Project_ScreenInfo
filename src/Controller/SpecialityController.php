@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Speciality;
 use App\Form\Speciality1Type;
-use App\Repository\DoctorRepository;
 use App\Repository\SpecialityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;

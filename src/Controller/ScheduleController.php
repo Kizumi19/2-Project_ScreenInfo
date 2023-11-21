@@ -6,6 +6,7 @@ use App\Entity\Schedule;
 use App\Form\ScheduleType;
 use App\Repository\ScheduleRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ScheduleController extends AbstractController
 {
     #[Route('/', name: 'app_schedule_index', methods: ['GET'])]
-    public function index(ScheduleRepository $scheduleRepository): Response
+    public function index(ScheduleRepository $scheduleRepository,  PaginatorInterface $paginator, Request $request): Response
     {
         $schedules = $scheduleRepository->findAll();
         $fullDoctor = [];
@@ -28,8 +29,21 @@ class ScheduleController extends AbstractController
             }
 
         }
+        $pageSize = 10; // Número de elementos por página
+
+        // Obtén la consulta sin ejecutarla aún
+        $query = $scheduleRepository->createQueryBuilder('d')
+            ->orderBy('d.id', 'ASC')
+            ->getQuery();
+
+        // Pagina los resultados utilizando el paginador
+        $schedules = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            $pageSize
+        );
         return $this->render('schedule/index.html.twig', [
-            'schedules' => $scheduleRepository->findAll(),
+            'schedules' => $schedules,
             'fullDoctor' => $fullDoctor,
         ]);
     }
@@ -55,7 +69,7 @@ class ScheduleController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_schedule_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_schedule_show', methods: ['GET'], requirements: ['id' => '\d+'])]
     public function show(Schedule $schedule): Response
     {
         return $this->render('schedule/show.html.twig', [
@@ -90,6 +104,25 @@ class ScheduleController extends AbstractController
         }
 
         return $this->redirectToRoute('app_schedule_index', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/list/{page}', name: 'schedule_list', methods: ['GET'])]
+    public function specialityList(ScheduleRepository $scheduleRepository, PaginatorInterface $paginator, Request $request, int $page = 1): Response
+    {
+        $pageSize = 10;
+
+        $query = $scheduleRepository->createQueryBuilder('s')
+            ->orderBy('s.id', 'ASC')
+            ->getQuery();
+
+        $schedules = $paginator->paginate(
+            $query,
+            $page,
+            $pageSize
+        );
+
+        return $this->render('schedule/index.html.twig', [
+            'schedules' => $schedules,
+        ]);
     }
 
 }
