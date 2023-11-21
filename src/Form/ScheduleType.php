@@ -63,10 +63,12 @@ class ScheduleType extends AbstractType
                         'Diumenge' => 'Sunday'
                     ]
 
-                ]
-            )
+                ]);
+        $builder->add('location', LocationType::class, [
+            'label' => 'Location Details',
+            'label_attr' => ['style' => 'font-weight: bold; color: #333; font-size: 20px;']
 
-        ;
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

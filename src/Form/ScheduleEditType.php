@@ -47,10 +47,8 @@ class ScheduleEditType extends AbstractType
                         'Diumenge' => 'Sunday'
                     ]
 
-                ]
-            )
+                ]);
 
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
