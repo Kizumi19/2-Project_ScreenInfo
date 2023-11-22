@@ -103,4 +103,5 @@ class LocationController extends AbstractController
             'currentPage' => $page,
         ]);
     }
+
 }
