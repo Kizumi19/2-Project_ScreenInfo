@@ -22,6 +22,7 @@
                 <th>Doctor/a</th>
                 <th>Dia</th>
                 <th>Torn que realitza</th>
+                <th>Ubicació</th>
                 <th>Accions</th>
             </tr>
         </thead>
@@ -45,6 +46,14 @@
                         {{ shift|trans }}{% if not loop.last %},{% endif %}
                     {% endfor %}
                 </td>
+                <td>
+                    {% if schedule.location %}
+                        Planta: {{ schedule.location.getFloor }}, Sala: {{ schedule.location.getRoom }}
+                    {% else %}
+                        No assignat
+                    {% endif %}
+                </td>
+
                 <td>
                     <div class="btn-group">
                         <a class="btn btn-secondary" href="{{ path('app_schedule_edit', {'id': schedule.id}) }}">Edita</a>

@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Doctor;
+use App\Entity\Location;
 use App\Entity\Schedule;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -63,12 +64,25 @@ class ScheduleType extends AbstractType
                         'Diumenge' => 'Sunday'
                     ]
 
-                ]);
-        $builder->add('location', LocationType::class, [
-            'label' => 'Location Details',
-            'label_attr' => ['style' => 'font-weight: bold; color: #333; font-size: 20px;']
+                ])
 
-        ]);
+            ->add(
+                'location',
+                EntityType::class,
+                [
+                    'label' => 'Ubicació',
+                    'label_attr' => ['style' => 'font-weight: bold; color: #333; font-size: 18px;'],
+                    'required' => true,
+                    'class' => Location::class,
+                    'choice_label' => function (Location $location) {
+                        return sprintf('Planta %d, Sala %d', $location->getFloor(), $location->getRoom());
+                    },
+                    'multiple' => false,
+                    'expanded' => false,
+                ]
+            );;
+
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
