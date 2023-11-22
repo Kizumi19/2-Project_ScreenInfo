@@ -25,7 +25,7 @@ class Doctor
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $hidden = null;
 
-    #[ORM\OneToMany(mappedBy: 'doctor', targetEntity: Schedule::class)]
+    #[ORM\OneToMany(mappedBy: 'doctor', targetEntity: Schedule::class, cascade: ['remove'])]
     private Collection $schedules;
 
     #[ORM\ManyToMany(targetEntity: Speciality::class, inversedBy: 'doctors')]

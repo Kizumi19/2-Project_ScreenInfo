@@ -20,9 +20,11 @@
             <tr>
                 <th>Nom</th>
                 <th>Cognoms</th>
+                <th>Especialitats</th>
                 <th>Torns</th>
                 <th>Dies</th>
-                <th>Especialitats</th>
+                <th>Planta</th>
+                <th>Consulta</th>
                 <th>Accions</th>
             </tr>
         </thead>
@@ -32,25 +34,43 @@
                 <td>{{ doctor.name }}</td>
                 <td>{{ doctor.surname }}</td>
                 <td>
-                    {% for schedule in doctor.schedules %}
-                        {% for shift in schedule.shift %}
-                            {{ shift|trans }}{% if not loop.last %},{% endif %}
+                    {% if doctor.specialities|length > 0 %}
+                        {% for speciality in doctor.specialities %}
+                            {{ speciality.getTypeSpeciality() }}{% if not loop.last %},{% endif %}
                         {% endfor %}
-                    {% endfor %}
+                    {% else %}
+                        No assignat
+                    {% endif %}
                 </td>
-                <td>
+                {% if doctor.schedules|length > 0 %}
                     {% for schedule in doctor.schedules %}
-                        {% for day in schedule.day %}
-                            {{ day|trans }}{% if not loop.last %},{% endif %}
-                        {% endfor %}
+                        <td>
+                            {% if schedule.shift|length > 0 %}
+                                {% for shift in schedule.shift %}
+                                    {{ shift|trans }}{% if not loop.last %},{% endif %}
+                                {% endfor %}
+                            {% else %}
+                                No assignat
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if schedule.day|length > 0 %}
+                                {% for day in schedule.day %}
+                                    {{ day|trans }}{% if not loop.last %},{% endif %}
+                                {% endfor %}
+                            {% else %}
+                                No assignat
+                            {% endif %}
+                        </td>
+                        <td>{{ schedule.location ? schedule.location.getFloor : ' ' }}</td>
+                        <td>{{ schedule.location ? schedule.location.getRoom : ' ' }}</td>
                     {% endfor %}
-                </td>
-                <td>
-                    {% for speciality in doctor.specialities %}
-                        {{ speciality.getTypeSpeciality() }}{% if not loop.last %},{% endif %}
-                    {% endfor %}
-                </td>
-
+                {% else %}
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                {% endif %}
                 <td>
                     <div class="btn-group">
                         <a class="btn btn-secondary" href="{{ path('app_doctor_show', {'id': doctor.id}) }}">Mostrar</a>
@@ -60,7 +80,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">No s'han trobat més registres</td>
+                <td colspan="8">No s'han trobat més registres</td>
             </tr>
         {% endfor %}
         </tbody>

@@ -51,26 +51,4 @@
             });
         });
 
-        $(document).ready(function() {
-            // Listener para cambios en el campo 'floor'
-            $('#floor').change(function() {
-                var selectedFloor = $(this).val(); // Obtiene el valor seleccionado
-
-                // Realiza una solicitud AJAX
-                $.ajax({
-                    url: '/path-to-your-endpoint', // Reemplaza con el endpoint correcto
-                    type: 'GET',
-                    data: { floor: selectedFloor },
-                    success: function(response) {
-                        // Actualiza el campo 'room' con las nuevas opciones
-                        $('#room').empty(); // Limpia las opciones actuales
-                        $.each(response.rooms, function(key, value) {
-                            $('#room').append($('<option></option>').attr('value', key).text(value));
-                        });
-                    }
-                });
-            });
-        });
-    </script>
-
 {% endblock %}
