@@ -24,41 +24,31 @@
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-8">
                         <h2 class="fw-bold mb-5">Inicia sessió</h2>
-                        <form>
-                            <!-- Email  -->
+
+                        <!-- Section: Design Block -->
+                        <form action="{{ path('app_login') }}" method="post">
                             <div class="form-outline mb-4">
-                                <input type="email" id="form3Example3" class="form-control" />
-                                <label class="form-label" for="form3Example3">Correu electrònic</label>
+                                <label class="form-label" for="username">Email:</label>
+                                <input type="text" id="username" name="_username" value="{{ last_username }}">
                             </div>
 
-                            <!-- Password  -->
                             <div class="form-outline mb-4">
-                                <input type="password" id="form3Example4" class="form-control" />
-                                <label class="form-label" for="form3Example4">Contrsenya</label>
+                                <label for="password">Password:</label>
+                                <input type="password" id="password" name="_password">
                             </div>
 
+                            <input type="hidden" name="_target_path" value="/">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-                            <!-- Submit button -->
                             <button type="submit" class="btn btn-primary btn-block mb-4">
                                 Accedeix
                             </button>
                         </form>
+
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Section: Design Block -->
-    <form action="{{ path('app_login') }}" method="post">
-        <label for="username">Email:</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}">
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="_password">
-
-
-        <input type="hidden" name="_target_path" value="/">
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        <button type="submit">login</button>
-    </form>
 {% endblock %}
