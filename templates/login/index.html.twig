@@ -5,59 +5,59 @@
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    <div class="mt-5"></div>
-
-    <div class="bg-image"></div>
-    <section class="text-center mt-5">
-        <div class="card mx-4 mx-md-auto shadow-5-strong" style="
-    background: hsla(0, 0%, 100%, 0.8);
-    backdrop-filter: blur(30px);
-    max-width: 600px; /* Ajusta el valor según tus preferencias */
-    ">
-            <div class="card-body py-5 px-md-5">
-                <div class="row d-flex justify-content-center">
-                    <div class="col-lg-8">
-                        <h1 class="fw-bold mb-5" style="margin-top: 50px;">Inicia sessió</h1>
-
-                        <form action="{{ path('app_login') }}" method="post">
-                            <div class="mb-3">
-                                <label for="username" class="form-label text-start"><strong>Correu electrònic:</strong></label>
-                                <input type="email" id="username" name="_username" value="{{ last_username }}" class="form-control" placeholder="nom@exemple.com">
+    <div class="container-fluid">
+        <div class="row no-gutter">
+            <!-- The content half -->
+            <div class="col-md-6 bg-light">
+                <div class="login d-flex align-items-center py-5">
+                    <!-- Demo content-->
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-10 col-xl-7 mx-auto">
+                                <h3 class="display-4 mb-5">Inicia sessió</h3>
+                                <form action="{{ path('app_login') }}" method="post">
+                                    <div class="form-group mb-3">
+                                        <label for="inputEmail" class="form-label"><strong>Correu electrònic:</strong></label>
+                                        <input id="inputEmail" type="email" name="_username" value="{{ last_username }}" placeholder="nom@exemple.com" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="inputPassword" class="form-label"><strong>Contrasenya:</strong></label>
+                                        <input id="inputPassword" type="password" name="_password" placeholder="contrasenya" required="" class="form-control rounded-pill border-0 shadow-sm px-4 text-primary">
+                                    </div>
+                                    <div class="custom-control custom-checkbox mb-3">
+                                        <input id="customCheck1" type="checkbox" checked class="custom-control-input">
+                                        <label for="customCheck1" class="custom-control-label">Recorda la contrasenya</label>
+                                    </div>
+                                    <input type="hidden" name="_target_path" value="/">
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                                    <button type="submit" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Accedeix</button>
+                                </form>
                             </div>
-
-                            <div class="form-outline mb-4">
-                                <label for="password" class="form-label text-start"><strong>Contrasenya:</strong></label>
-                                <input type="password" id="password" name="_password" class="form-control">
-                            </div>
-
-                            <input type="hidden" name="_target_path" value="/">
-                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-                            <button type="submit" class="btn btn-primary btn-block mb-4">
-                                Accedeix
-                            </button>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
+            <!-- The image half -->
+            <div class="col-md-6 d-none d-md-flex bg-image"></div>
+        </div>
+    </div>
 
     <style>
         .bg-image {
             background-image: url("{{ asset('images/wallpaper4HCAs.jpg') }}");
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-size: cover;
             position: fixed;
             top: 0;
+            right: 0;
             text-align: center;
-            width: 100%;
-            margin-left: auto;
-            margin-right: auto;
+            width: 50%;
             height: 100%;
             z-index: -1;
+        }
+
+        .login,
+        .image {
+            min-height: 100vh;
         }
     </style>
 {% endblock %}
