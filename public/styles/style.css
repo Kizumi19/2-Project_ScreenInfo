@@ -23,8 +23,17 @@
     background-color: #7639b0;  /* To més oscur per als fons */
 }
 .scrollable-list {
-    max-height: 200px; /* Ajusta esto según el tamaño que necesites */
-    overflow-y: auto; /* Esto habilitará el scrollbar si el contenido excede la altura máxima */
+    max-height: 200px;
+    overflow-y: auto;
 }
 
+.image {
+    min-height: 100vh;
+}
+
+.bg-image {
+    background-image: url("{{ asset('images/wallpaper4HCAs') }}");
+    background-size: cover;
+    background-position: center center;
+}
 

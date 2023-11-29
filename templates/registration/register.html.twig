@@ -1,7 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseNL.html.twig' %}
 
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    {{ form(registration_form) }}
+    <form method="post">
+        {{ form_widget(registration_form) }}
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
 {% endblock %}
