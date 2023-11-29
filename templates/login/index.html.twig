@@ -5,15 +5,15 @@
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
+    <div class="mt-5"></div>
 
     <div class="bg-image"></div>
-
     <section class="text-center mt-5">
-        <div class="card mx-4 mx-md-5 shadow-5-strong" style="
-        background: hsla(0, 0%, 100%, 0.8);
-        backdrop-filter: blur(30px);
-        max-width: 500px;
-        ">
+        <div class="card mx-4 mx-md-auto shadow-5-strong" style="
+    background: hsla(0, 0%, 100%, 0.8);
+    backdrop-filter: blur(30px);
+    max-width: 600px; /* Ajusta el valor según tus preferencias */
+    ">
             <div class="card-body py-5 px-md-5">
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-8">
@@ -21,12 +21,12 @@
 
                         <form action="{{ path('app_login') }}" method="post">
                             <div class="mb-3">
-                                <label for="username" class="form-label "> <strong> Correu electrònic:</strong></label>
+                                <label for="username" class="form-label text-start"><strong>Correu electrònic:</strong></label>
                                 <input type="email" id="username" name="_username" value="{{ last_username }}" class="form-control" placeholder="nom@exemple.com">
                             </div>
 
                             <div class="form-outline mb-4">
-                                <label for="password" class="form-label"> <strong>Contrasenya:</strong></label>
+                                <label for="password" class="form-label text-start"><strong>Contrasenya:</strong></label>
                                 <input type="password" id="password" name="_password" class="form-control">
                             </div>
 
@@ -43,16 +43,19 @@
         </div>
     </section>
 
+
     <style>
         .bg-image {
-            background-image: url("{{ asset('images/wallpaper4HCA.jpg') }}");
+            background-image: url("{{ asset('images/wallpaper4HCAs.jpg') }}");
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: cover;
             position: fixed;
             top: 0;
-            left: 0;
+            text-align: center;
             width: 100%;
+            margin-left: auto;
+            margin-right: auto;
             height: 100%;
             z-index: -1;
         }

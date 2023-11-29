@@ -27,10 +27,13 @@
     overflow-y: auto;
 }
 
- background_wallpaper {
-     background-image: url('../images/171.jpg');
-     background-repeat: no-repeat;
-     background-attachment: fixed;
-     background-size: cover;
- }
+.image {
+    min-height: 100vh;
+}
+
+.bg-image {
+    background-image: url("{{ asset('images/wallpaper4HCAs') }}");
+    background-size: cover;
+    background-position: center center;
+}
 
