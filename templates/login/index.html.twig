@@ -1,6 +1,7 @@
 {% extends 'baseNL.html.twig' %}
-
+{% block title %}Accedir a Ekranas{% endblock %}
 {% block body %}
+
     {% if error %}
         <div class="alert alert-danger">Credencials incorrectes, si us plau intenta-ho de nou</div>
     {% endif %}
@@ -14,7 +15,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-10 col-xl-7 mx-auto">
-                                <h3 class="display-4 mb-5">Inicia sessió</h3>
+                                <h1 class="display-4 mb-5">Inicia sessió</h1>
                                 <form action="{{ path('app_login') }}" method="post">
                                     <div class="form-group mb-3">
                                         <label for="inputEmail" class="form-label"><strong>Correu electrònic:</strong></label>
