@@ -13,6 +13,8 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+            stateless: true
+
         main:
             lazy: true
             provider: app_user_provider
