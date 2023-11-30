@@ -47,8 +47,6 @@ class DoctorType extends AbstractType
                 ],
             ])
 
-
-
             ->add('specialities', EntityType::class, [
                 'label' => 'Especialitats',
                 'label_attr' => ['style' => 'font-weight: bold; color: #333; font-size: 18px;'],

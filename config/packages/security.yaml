@@ -21,7 +21,9 @@ security:
                 check_path: app_login
             logout:
                 path: app_logout
-            # activate different ways to authenticate
+                target: app_homepage
+
+          # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
             # https://symfony.com/doc/current/security/impersonating_user.html
@@ -32,7 +34,7 @@ security:
     access_control:
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/login, roles:  }
-         - { path: ^/location, roles: ROLE_USER }
+         - { path: ^/location, roles: ROLE_ADMIN }
          - { path: ^/doctor, roles: ROLE_USER }
          - { path: ^/schedule, roles: ROLE_USER }
          - { path: ^/speciality, roles: ROLE_USER }
