@@ -10,7 +10,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use App\Repository\UserRepository;
-
+use App\Entity\User;
 
 #[AsCommand(
     name: 'app:create-admin-user',
@@ -50,7 +50,13 @@ class CreateAdminUserCommand extends Command
             $io->note(sprintf('Vols crear un usuari de tipus "administrador"'));
         }
 
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        $usuari = new User();
+        $usuari->setEmail($email);
+        $usuari->setPassword($password);
+
+        $this->userRepository->createUser($usuari);
+
+        $io->success('Enhorabona has creat un nou usuari!');
 
         return Command::SUCCESS;
     }
