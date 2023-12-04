@@ -52,13 +52,16 @@ class CreateAdminUserCommand extends Command
         $io->note(sprintf('You passed an password: %s', $password));
 
 
-        if ($input->getOption('admin')) {
-            $io->note(sprintf('Vols crear un usuari de tipus "administrador"'));
-        }
-
         $usuari = new User();
         $usuari->setEmail($email);
         $usuari->setPassword($password);
+
+        if ($input->getOption('admin')) {
+            $io->note(sprintf('Vols crear un usuari de tipus "administrador"'));
+            $usuari->setRoles(['ROLE_ADMIN']);
+        } else {
+            $usuari->setRoles(['ROLE_USER']);
+        }
 
         $hashPassword = $this->passwordHasher->hashPassword($usuari, $password);
         $usuari->setPassword($hashPassword);
