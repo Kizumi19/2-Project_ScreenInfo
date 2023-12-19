@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\DoctorRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -48,20 +49,28 @@ class IndexController extends AbstractController
             }
         }
 
-        // Obtenir la hora actual
+        // Obtenir l'hora actual
         $horaActual = new \DateTime();
 
-        // Formatar la hora
-        $horaFormateada = $horaActual->format('Y-m-d H:i:s');
+        // Formatar l'hora
+        $horaFormateada = $horaActual->format('d/m/y H:i');
+
 
         return $this->render('screen/index.html.twig', [
             'doctors' => $doctors,
             'fullSchedule' => $fullSchedule,
             'fullSpeciality' => $fullSpeciality,
-            'hora' => $horaFormateada,
+            'hora' => $horaActual,
         ]);
+
     }
 
+    #[Route('/current_time', name: 'current_time', methods: ['GET'])]
+    public function currentTime(): JsonResponse
+    {
+        $currentTime = new \DateTime();
+        return new JsonResponse(['time' => $currentTime->format('d/m/y H:i')]);
+    }
 }
 
 
