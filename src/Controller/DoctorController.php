@@ -20,14 +20,14 @@ class DoctorController extends AbstractController
     #[Route('/', name: 'app_doctor_index', methods: ['GET'])]
     public function index(DoctorRepository $doctorRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $pageSize = 10; // Número de elementos por página
+        $pageSize = 10; // Número d'elements per pàgina
 
-        // Obtén la consulta sin ejecutarla aún
+        // Agafar la consulta sense executar-la encara
         $query = $doctorRepository->createQueryBuilder('d')
             ->orderBy('d.id', 'ASC')
             ->getQuery();
 
-        // Pagina los resultados utilizando el paginador
+        // Paginar els resultats utilizant el paginator
         $doctors = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
