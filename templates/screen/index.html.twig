@@ -5,12 +5,11 @@
 {% block inside_body %}
     <div>
         <div>
-            <div class="time-card mb-0 style=font-size: 20px;">
+            <div class="time-card mb-0 d-flex justify-content-end align-items-center" style="font-size: 20px; text-align: right;">
                 <div class="card">
-                    <p class="time-text">
-                        <span id="current-hour">Carregant hora...</span>
-                        <span class="time-sub-text" id="current-period">AM/PM</span>
-                    </p>
+                    <div id="digital-clock">
+                        Carregant hora...
+                    </div>
                     <p class="day-text" id="current-day">Carregant dia...</p>
                 </div>
             </div>
@@ -22,7 +21,25 @@
                 <p class="mb-0" style="font-size: 20px;"><strong>Data actual: {{ hora|date('d/m/y') }}</strong></p>
             </div>
 
-                <table class="table container-fluid custom-table">
+            <div class="error">
+                <div class="error__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+                        <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
+                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
+                    </svg>
+                </div>
+                <div class="error__title">
+                    <div id="digital-clock">
+                        Carregant hora...
+                    </div>
+                    <p id="current-day">Carregant dia...</p>
+                </div>
+                <div class="error__close">
+                </div>
+            </div>
+
+
+            <table class="table container-fluid custom-table">
                     <thead>
                         <tr>
                             <th scope="col" >Especialitat</th>
@@ -101,23 +118,24 @@
                 const now = new Date();
                 const hours = now.getHours();
                 const minutes = now.getMinutes();
-                const isAm = hours < 12;
-                const formattedHours = ((hours + 11) % 12 + 1); // Convierte a formato 12 horas
+                const seconds = now.getSeconds();
+                const formattedHours = hours < 10 ? '0' + hours : hours;
                 const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+                const formattedSeconds = seconds < 10 ? '0' + seconds : seconds;
 
-                document.getElementById('current-hour').textContent = `${formattedHours}:${formattedMinutes}`;
-                document.getElementById('current-period').textContent = isAm ? 'AM' : 'PM';
+                // Actualizar el reloj digital
+                document.getElementById('digital-clock').textContent = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
 
+                // Actualizar la fecha
                 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
                 document.getElementById('current-day').textContent = now.toLocaleDateString('es-ES', options);
             }
 
-            // Actualizar la hora y fecha cada minuto
-            setInterval(updateDateTime, 60000);
+            // Actualizar la hora y fecha cada segundo
+            setInterval(updateDateTime, 1000);
 
             // Actualizar la hora y fecha al cargar la página
             document.addEventListener('DOMContentLoaded', updateDateTime);
-
         </script>
     {% endblock %}
 
