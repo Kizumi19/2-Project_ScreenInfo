@@ -5,38 +5,30 @@
 {% block inside_body %}
     <div>
         <div>
-            <div class="time-card mb-0 d-flex justify-content-end align-items-center" style="font-size: 20px; text-align: right;">
-                <div class="card">
-                    <div id="digital-clock">
-                        Carregant hora...
-                    </div>
-                    <p class="day-text" id="current-day">Carregant dia...</p>
-                </div>
-            </div>
 
             <div class="d-flex justify-content-end align-items-center">
                 <div class="text-center flex-grow-1">
                     <h1 class="mb-0">TORN - <span>{{ (hora|date('H') < 15) ? 'Matí' : 'Tarda' }}</span></h1>
                 </div>
-                <p class="mb-0" style="font-size: 20px;"><strong>Data actual: {{ hora|date('d/m/y') }}</strong></p>
+                <div class="error">
+                    <div class="error__icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+                            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
+                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
+                        </svg>
+                    </div>
+                    <div class="error__title">
+                        <div id="digital-clock" style="font-size: 20px;">
+                            Carregant hora...
+                        </div>
+                        <p id="current-day">Carregant dia...</p>
+                    </div>
+                    <div class="error__close">
+                    </div>
+                </div>
             </div>
 
-            <div class="error">
-                <div class="error__icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
-                        <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
-                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
-                    </svg>
-                </div>
-                <div class="error__title">
-                    <div id="digital-clock">
-                        Carregant hora...
-                    </div>
-                    <p id="current-day">Carregant dia...</p>
-                </div>
-                <div class="error__close">
-                </div>
-            </div>
+
 
 
             <table class="table container-fluid custom-table">
@@ -104,14 +96,12 @@
                         document.querySelector('h1 > span').textContent = hours < 15 ? 'Matí' : 'Tarda';
                     })
                     .catch(error => {
-                        console.error('Error al actualizar la hora:', error);
+                        console.error('Error a l\'actualitzar l\'hora:', error);
                     });
             }
 
-            // Actualizar la hora cada minuto
             setInterval(fetchCurrentTime, 50000);
 
-            // Actualizar la hora al cargar la página
             document.addEventListener('DOMContentLoaded', fetchCurrentTime);
 
             function updateDateTime() {
@@ -123,19 +113,20 @@
                 const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
                 const formattedSeconds = seconds < 10 ? '0' + seconds : seconds;
 
-                // Actualizar el reloj digital
                 document.getElementById('digital-clock').textContent = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
 
-                // Actualizar la fecha
                 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                document.getElementById('current-day').textContent = now.toLocaleDateString('es-ES', options);
+                let dateString = now.toLocaleDateString('ca-CA', options);
+
+                dateString = dateString.charAt(0).toUpperCase() + dateString.slice(1);
+
+                document.getElementById('current-day').textContent = dateString;
             }
 
-            // Actualizar la hora y fecha cada segundo
             setInterval(updateDateTime, 1000);
 
-            // Actualizar la hora y fecha al cargar la página
             document.addEventListener('DOMContentLoaded', updateDateTime);
+
         </script>
     {% endblock %}
 
