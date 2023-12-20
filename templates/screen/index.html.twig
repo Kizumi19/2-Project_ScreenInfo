@@ -5,6 +5,16 @@
 {% block inside_body %}
     <div>
         <div>
+            <div class="time-card mb-0 style=font-size: 20px;">
+                <div class="card">
+                    <p class="time-text">
+                        <span id="current-hour">Carregant hora...</span>
+                        <span class="time-sub-text" id="current-period">AM/PM</span>
+                    </p>
+                    <p class="day-text" id="current-day">Carregant dia...</p>
+                </div>
+            </div>
+
             <div class="d-flex justify-content-end align-items-center">
                 <div class="text-center flex-grow-1">
                     <h1 class="mb-0">TORN - <span>{{ (hora|date('H') < 15) ? 'Matí' : 'Tarda' }}</span></h1>
@@ -12,16 +22,15 @@
                 <p class="mb-0" style="font-size: 20px;"><strong>Data actual: {{ hora|date('d/m/y') }}</strong></p>
             </div>
 
-
-                <table class="table container-fluid">
+                <table class="table container-fluid custom-table">
                     <thead>
-                    <tr style="font-size: 20px;">
-                        <th style="background-color: #ADD8E6;" scope="col" >Especialitat</th>
-                        <th style="background-color: #ADD8E6;" scope="col">Metge/Metgessa</th>
-                        <th style="background-color: #ADD8E6;" scope="col">Planta</th>
-                        <th style="background-color: #ADD8E6;" scope="col">Consulta</th>
+                        <tr>
+                            <th scope="col" >Especialitat</th>
+                            <th scope="col">Metge/Metgessa</th>
+                            <th scope="col">Planta</th>
+                            <th scope="col">Consulta</th>
 
-                    </tr>
+                        </tr>
                     </thead>
                     <tbody class="table-group-divider">
                     {% for doctor in doctors %}
@@ -83,10 +92,32 @@
             }
 
             // Actualizar la hora cada minuto
-            setInterval(fetchCurrentTime, 60000);
+            setInterval(fetchCurrentTime, 50000);
 
             // Actualizar la hora al cargar la página
             document.addEventListener('DOMContentLoaded', fetchCurrentTime);
+
+            function updateDateTime() {
+                const now = new Date();
+                const hours = now.getHours();
+                const minutes = now.getMinutes();
+                const isAm = hours < 12;
+                const formattedHours = ((hours + 11) % 12 + 1); // Convierte a formato 12 horas
+                const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+
+                document.getElementById('current-hour').textContent = `${formattedHours}:${formattedMinutes}`;
+                document.getElementById('current-period').textContent = isAm ? 'AM' : 'PM';
+
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                document.getElementById('current-day').textContent = now.toLocaleDateString('es-ES', options);
+            }
+
+            // Actualizar la hora y fecha cada minuto
+            setInterval(updateDateTime, 60000);
+
+            // Actualizar la hora y fecha al cargar la página
+            document.addEventListener('DOMContentLoaded', updateDateTime);
+
         </script>
     {% endblock %}
 
