@@ -146,9 +146,9 @@ body {
     align-items: center;
     justify-content: start;
     border-radius: 50px;
-    background: -webkit-linear-gradient(to right, #f45c43, #eb3349);
-    background: linear-gradient(to right, #f45c43, #eb3349);
-    box-shadow: 0 0px 10px #de1c3280;
+    background: -webkit-linear-gradient(to right, #57c1eb, #246fa8); 
+    background: linear-gradient(to right, #57c1eb, #246fa8);
+    box-shadow: 0 0px 10px #1e579980;
 }
 
 .error__icon {
