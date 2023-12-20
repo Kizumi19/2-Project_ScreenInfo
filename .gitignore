@@ -24,3 +24,7 @@ package-lock.json
 package.json
 public/styles/style.css
 tailwind.config.js
+
+## Other
+.env
+.env.prod
