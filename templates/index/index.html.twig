@@ -3,47 +3,21 @@
 {% block title %}Pantalla principal{% endblock %}
 
 {% block inside_body %}
-    <!-- Card 1 Mostrar info -->
-    <div class="container px-4 m-3">
-        <div class="row align-items-start">
-            <!-- Primer card -->
-            <div class="col-md-6">
-                <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row gx-5">
-                        <div class="col-md-4">
-                            <img src="{{ asset('images/EditIcon.png') }}" style="max-width: 100%; max-height: 200px;" class="img-fluid img-limited rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Editar informació de la pantalla</h5>
-                                <p class="card-text">Podrà canviar la informació dels doctors.</p>
-                                <a href="{{ path('app_admin_dashboard') }}" class="btn btn-primary">Editar</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="cards-container">
+        <a href="{{ path('app_admin_dashboard') }}" class="info-card container-style">
+            <div class="background-overlay"></div>
+            <div class="round-element">
+                <img src="{{ asset('images/EditIcon.png') }}" class="image-in-circle" alt="...">
             </div>
+            <p class="m-lg-3 mt-2" style="text-align: center"> <strong>Canviar</strong> la informació dels doctors.</p>
+        </a>
 
-            <!-- Card 2 Editar info -->
-            <div class="col-md-6 ">
-                <div class="card mb-3">
-                    <div class="row gx-5 " >
-                        <div class="col-md-4" >
-                            <img src="{{ asset('images/MostrarInfoIcona.png') }}" style="max-width: 100%; max-height: 200px;" class="img-fluid imatge-visualitzar rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Mostrar informació per la pantalla </h5>
-                                <p class="card-text">Mostrar als pacients la informació dels doctors (Especialització, nom i cognoms, planta i consulta).</p>
-                                <!-- Farà falta assignar-li una redirecció -->
-                                <a href="{{ path('app_index_screen') }}" class="btn btn-primary">Visualitzar</a>
-                            </div>
-                            &nbsp
-                        </div>
-                    </div>
-                </div>
+        <a href="{{ path('app_index_screen') }}" class="info-card container-style">
+            <div class="background-overlay"></div>
+            <div class="round-element">
+                <img src="{{ asset('images/MostrarInfoIcona.png') }}" class="image-in-circle" alt="...">
             </div>
-        </div>
+            <p class="m-lg-3 mt-2" style="text-align: center"><strong>Mostrar</strong> informació per la pantalla</p>
+        </a>
     </div>
-
 {% endblock %}

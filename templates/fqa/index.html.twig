@@ -1,19 +1,71 @@
 {% extends 'base.html.twig' %}
 {% block inside_body %}
-
+    <title>Preguntes i Respostes d'EKRANAS</title>
     <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1 class="mb-5">
+        <i class="bi bi-info-circle"></i>
+        Preguntes Freqüents sobre l'Aplicatiu Web EKRANAS
+    </h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp/www/2-Project_ScreenInfo/src/Controller/FQAController.php'|file_link(0) }}">src/Controller/FQAController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp/www/2-Project_ScreenInfo/templates/fqa/admin_menu.html.twig'|file_link(0) }}">templates/fqa/index.html.twig</a></code></li>
-    </ul>
+    <h2 class="mb-2">
+        <i class="bi bi-1-square-fill"></i>
+        Què és l'aplicatiu web EKRANAS?
+    </h2>
+    <p>EKRANAS és una aplicació web desenvolupada per proporcionar un accés àgil i clar a la informació sobre cada un dels metges i metgesses de l'hospital.</p>
+
+    <h2>
+        <i class="bi bi-2-square-fill"></i>
+        Quins són els objectius de l'aplicatiu web EKRANAS?
+    </h2>
+    <p>Els objectius d'EKRANAS són facilitar la visualització de dades al públic i fer que el procés d'edició de la informació sigui més intuïtiu i ràpid per a tots els usuaris.</p>
+
+    <h2>
+        <i class="bi bi-3-square-fill"></i>
+        Qui són els principals usuaris de l'aplicatiu EKRANAS?
+    </h2>
+    <p>Els principals usuaris d'EKRANAS són el públic general que busca informació sobre els metges de l'hospital i els usuaris interns que necessiten editar i actualitzar la informació de manera eficient.</p>
+
+    <h2>
+        <i class="bi bi-4-square-fill"></i>
+        EKRANAS permet modificar la informació dels metges?
+    </h2>
+    <p>Sí, EKRANAS està dissenyat perquè el procés d'edició de la informació dels metges sigui intuïtiu i ràpid, la qual cosa suggereix que els usuaris autoritzats poden modificar la informació.</p>
+
+    <h2>
+        <i class="bi bi-5-square-fill"></i>
+        Es necessita alguna formació especial per utilitzar EKRANAS?
+    </h2>
+    <p>L'aplicatiu té l'objectiu que sigui intuïtiu, està dissenyat per ser fàcil d'utilitzar, minimitzant la necessitat de formació especial. De tal manera que, qualsevol usuari de l'hospital el pugui utilitzar sense cap problema.</p>
+
+    <h2>
+        <i class="bi bi-6-square-fill"></i>
+        EKRANAS està disponible per a l'ús de qualsevol persona?
+    </h2>
+    <p>EKRANAS està dissenyat per facilitar la visualització pública de dades, i perl que fa a l'accés a les funcions d'edició està restringit perquè sols puguin accedir els usuaris autoritzats dins de l'hospital.</p>
+
+    <h2>
+        <i class="bi bi-7-square-fill"></i>
+        Com assegura EKRANAS la actualització precisa dels horaris dels metges?
+    </h2>
+    <p>
+        EKRANAS incorpora un sistema dinàmic per a l'actualització dels <strong>horaris dels metges</strong> que l'usuari hagi ficat, adaptant-se als diferents torns laborals especificats pels usuaris, com ara matí, tarda o matí i tarda. Per assegurar una transició suau i precisa entre els torns, l'aplicatiu realitza automàticament els canvis d'horari a les <strong>15:00</strong>, passant dels horaris de matí als de tarda.
+    </p>
+    <p></p>
+    <p>
+        Aquest mecanisme garantitza que la informació presentada als usuaris estigui sempre actualitzada i correspongui als serveis disponibles en temps real.
+    </p>
+
+    <h2>
+        <i class="bi bi-8-square-fill"></i>
+        EKRANAS és una aplicació segura per controlar informació sensible?
+    </h2>
+    <p>L'aplicatiu té la seguretat pertinent per evitar que es perdi o hagin accesos no autoritzats, ara bé, EKRANAS sols emmagatzema les <strong>dades bàsiques</strong> per poder mostrar per pantalla la informació final a l'usuari</p>
+
 </div>
 
 {% endblock %}
