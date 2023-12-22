@@ -48,7 +48,7 @@
                 {% for doctor in doctors %}
                     {% set showDoctor = false %}
                     {% for schedule in doctor.schedules %}
-                        {% if torn in schedule.shift %}
+                        {% if torn in schedule.shift and diaDeLaSemana in schedule.day %}
                             {% set showDoctor = true %}
                         {% endif %}
                     {% endfor %}
@@ -69,7 +69,7 @@
                                 {% if doctor.schedules|length > 0 %}
                                     Planta
                                     {% for schedule in doctor.schedules %}
-                                        {% if torn in schedule.shift %}
+                                        {% if torn in schedule.shift and diaDeLaSemana in schedule.day %}
                                             {{ schedule.location ? schedule.location.getFloor : ' ' }}
                                             {% if not loop.last %},{% endif %}
                                         {% endif %}
@@ -81,7 +81,7 @@
                             <td>
                                 {% if doctor.schedules|length > 0 %}
                                     {% for schedule in doctor.schedules %}
-                                        {% if torn in schedule.shift %}
+                                        {% if torn in schedule.shift and diaDeLaSemana in schedule.day %}
                                             Consulta {{ schedule.location ? schedule.location.getRoom : ' ' }}
                                             {% if not loop.last %},{% endif %}
                                         {% endif %}
@@ -93,6 +93,7 @@
                         </tr>
                     {% endif %}
                 {% endfor %}
+
                 </tbody>
 
             </table>

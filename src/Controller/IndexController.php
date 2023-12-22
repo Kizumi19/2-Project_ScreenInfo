@@ -31,38 +31,27 @@ class IndexController extends AbstractController
     #[Route('/screen', name: 'app_index_screen')]
     public function screen(DoctorRepository $doctorRepository): Response
     {
+        $horaActual = new \DateTime();
+        $torn = $horaActual->format('H') < 15 ? 'Morning' : 'Afternoon';
+        $diaDeLaSemana = $horaActual->format('l');
+
         $doctors = $doctorRepository->createQueryBuilder('d')
+            ->join('d.schedules', 's')
+            ->andWhere('s.day LIKE :dia')
+            ->andWhere('s.shift LIKE :torn')
+            ->setParameter('dia', '%"'.$diaDeLaSemana.'"%')
+            ->setParameter('torn', '%"'.$torn.'"%')
             ->orderBy('d.id', 'ASC')
             ->getQuery()
             ->getResult();
 
-        $horaActual = new \DateTime();
-        $torn = $horaActual->format('H') < 15 ? 'Morning' : 'Afternoon';
-
-        $filteredSchedules = [];
-        $fullSpeciality = [];
-
-        foreach ($doctors as $doctor) {
-            foreach ($doctor->getSchedules() as $schedule) {
-                if (in_array($torn, $schedule->getShift(), true)) {
-                    $filteredSchedules[] = $schedule;
-                }
-            }
-            foreach ($doctor->getSpecialities() as $speciality) {
-                $fullSpeciality[] = $speciality;
-            }
-        }
-
         return $this->render('screen/index.html.twig', [
             'doctors' => $doctors,
-            'fullSchedule' => $filteredSchedules,
-            'fullSpeciality' => $fullSpeciality,
             'hora' => $horaActual,
             'torn' => $torn,
+            'diaDeLaSemana' => $diaDeLaSemana,
         ]);
     }
-
-
 
 
     #[Route('/current_time', name: 'current_time', methods: ['GET'])]
