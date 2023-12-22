@@ -15,21 +15,22 @@
                 <div class="text-center flex-grow-1">
                     <h1 class="mb-0"><strong>TORN - </strong><span>{{ (hora|date('H') < 15) ? 'Matí' : 'Tarda' }}</span></h1>
                 </div>
-                <div class="error">
+                <div class="error mb-1">
                     <div class="error__icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
                             <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
                             <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
                         </svg>
                     </div>
-                    <div class="error__title">
-                        <div id="digital-clock" style="font-size: 20px;">
+                    <div class="error__title" style="margin: 0; padding: 0;">
+                        <div id="digital-clock" style="font-size: 20px; margin: 0;">
                             Carregant hora...
                         </div>
-                        <p id="current-day">Carregant dia...</p>
+                        <p id="current-day" style="margin: 0;">
+                            Carregant dia...
+                        </p>
                     </div>
-                    <div class="error__close">
-                    </div>
+
                 </div>
             </div>
 
@@ -85,12 +86,11 @@
 
             </div>
         </div>
-    </div>
     {% block javascripts %}
         {{ parent() }}
         <script>
             function fetchCurrentTime() {
-                fetch('/current_time') // Usa la ruta directamente aquí
+                fetch('/current_time')
                     .then(response => response.json())
                     .then(data => {
                         const currentDateTime = new Date(data.time);
