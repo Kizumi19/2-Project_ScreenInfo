@@ -52,18 +52,17 @@ class IndexController extends AbstractController
         // Obtenir l'hora actual
         $horaActual = new \DateTime();
 
-        // Formatar l'hora
-        $horaFormateada = $horaActual->format('d/m/y H:i');
-
+        $torn = $horaActual->format('H') < 15 ? 'dia' : 'tarda';
 
         return $this->render('screen/index.html.twig', [
             'doctors' => $doctors,
             'fullSchedule' => $fullSchedule,
             'fullSpeciality' => $fullSpeciality,
             'hora' => $horaActual,
+            'torn' => $torn,
         ]);
-
     }
+
 
     #[Route('/current_time', name: 'current_time', methods: ['GET'])]
     public function currentTime(): JsonResponse
