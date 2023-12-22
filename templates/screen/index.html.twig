@@ -35,16 +35,15 @@
             </div>
 
 
-            <table class="table container-fluid custom-table">
-                    <thead>
-                        <tr>
-                            <th scope="col" >Especialitat</th>
-                            <th scope="col">Metge/Metgessa</th>
-                            <th scope="col">Planta</th>
-                            <th scope="col">Consulta</th>
-
-                        </tr>
-                    </thead>
+            <table class="table container-fluid custom-table blue-scale-table rounded-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Especialitat</th>
+                        <th scope="col">Metge/Metgessa</th>
+                        <th scope="col">Planta</th>
+                        <th scope="col">Consulta</th>
+                    </tr>
+                </thead>
                 <tbody class="table-group-divider">
                 {% for doctor in doctors %}
                     {% set showDoctor = false %}

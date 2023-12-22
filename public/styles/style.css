@@ -697,3 +697,50 @@ body {
         transform: translateY(0%);
     }
 }
+
+/* Capçalera Screen */
+
+.blue-scale-table thead {
+    background-color: #e3f2fd;
+}
+
+.blue-scale-table thead th {
+    background-color: #bbdefb;
+    color: #212529;
+}
+
+.blue-scale-table tbody tr:nth-child(odd) {
+    background-color: #f1f8fe;
+}
+
+/* Clase personalizada para bordes redondeados en la tabla */
+.rounded-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 0.5rem;
+    overflow: hidden; /* Asegura que el fondo y los bordes se recorten */
+}
+
+.rounded-table thead th:first-child {
+    border-top-left-radius: 0.5rem;
+}
+
+.rounded-table thead th:last-child {
+    border-top-right-radius: 0.5rem;
+}
+
+.rounded-table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 0.5rem;
+}
+
+.rounded-table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 0.5rem;
+}
+
+/* Asegúrate de que los th y td no tengan bordes que interfieran con el radio */
+.rounded-table th,
+.rounded-table td {
+    border: none;
+}
+
+
