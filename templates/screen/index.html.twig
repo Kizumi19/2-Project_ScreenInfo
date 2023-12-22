@@ -7,8 +7,11 @@
         <div>
             <div class="d-flex justify-content-end align-items-center">
                 <div class="logo-container">
-                    <img src="{{ asset('images/LogoHCASi.png') }}" alt="Logotipo" class="logo">
+                    <a href="{{ asset('/') }}">
+                        <img src="{{ asset('images/LogoHCASi.png') }}" alt="Logotipo" class="logo">
+                    </a>
                 </div>
+
                 <div class="text-center flex-grow-1">
                     <h1 class="mb-0"><strong>TORN - </strong><span>{{ (hora|date('H') < 15) ? 'Matí' : 'Tarda' }}</span></h1>
                 </div>
