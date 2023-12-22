@@ -19,9 +19,8 @@ class Location
     #[ORM\Column]
     private ?int $floor = null;
 
-    #[ORM\Column]
-    private ?int $room = null;
-
+    #[ORM\Column(type: Types::STRING, length: 10)]
+    private ?string $room = null;
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $hidden = null;
 
@@ -50,12 +49,12 @@ class Location
         return $this;
     }
 
-    public function getRoom(): ?int
+    public function getRoom(): ?string
     {
         return $this->room;
     }
 
-    public function setRoom(int $room): static
+    public function setRoom(string $room): self
     {
         $this->room = $room;
 

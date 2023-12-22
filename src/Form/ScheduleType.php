@@ -75,14 +75,13 @@ class ScheduleType extends AbstractType
                     'required' => true,
                     'class' => Location::class,
                     'choice_label' => function (Location $location) {
-                        return sprintf('Planta %d, Sala %d', $location->getFloor(), $location->getRoom());
+                        return sprintf('Planta: %d, Sala: %s', $location->getFloor(), $location->getRoom());
                     },
                     'multiple' => false,
                     'expanded' => false,
                 ]
-            );;
-
-
+            )
+;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
