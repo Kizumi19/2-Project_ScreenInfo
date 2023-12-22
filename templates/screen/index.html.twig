@@ -45,8 +45,16 @@
 
                         </tr>
                     </thead>
-                    <tbody class="table-group-divider">
-                    {% for doctor in doctors %}
+                <tbody class="table-group-divider">
+                {% for doctor in doctors %}
+                    {% set showDoctor = false %}
+                    {% for schedule in doctor.schedules %}
+                        {% if torn in schedule.shift %}
+                            {% set showDoctor = true %}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if showDoctor %}
                         <tr>
                             <td>
                                 {% if doctor.specialities|length > 0 %}
@@ -62,8 +70,10 @@
                                 {% if doctor.schedules|length > 0 %}
                                     Planta
                                     {% for schedule in doctor.schedules %}
-                                        {{ schedule.location ? schedule.location.getFloor : ' ' }}
-                                        {% if not loop.last %}{% endif %}
+                                        {% if torn in schedule.shift %}
+                                            {{ schedule.location ? schedule.location.getFloor : ' ' }}
+                                            {% if not loop.last %},{% endif %}
+                                        {% endif %}
                                     {% endfor %}
                                 {% else %}
                                     No assignat
@@ -72,17 +82,21 @@
                             <td>
                                 {% if doctor.schedules|length > 0 %}
                                     {% for schedule in doctor.schedules %}
-                                        Consulta {{ schedule.location ? schedule.location.getRoom : ' ' }}
-                                        {% if not loop.last %}{% endif %}
+                                        {% if torn in schedule.shift %}
+                                            Consulta {{ schedule.location ? schedule.location.getRoom : ' ' }}
+                                            {% if not loop.last %},{% endif %}
+                                        {% endif %}
                                     {% endfor %}
                                 {% else %}
                                     No assignat
                                 {% endif %}
                             </td>
                         </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+
+            </table>
 
             </div>
         </div>
@@ -129,6 +143,30 @@
             setInterval(updateDateTime, 1000);
 
             document.addEventListener('DOMContentLoaded', updateDateTime);
+
+            function refrescarQuanSiguin15() {
+                const now = new Date();
+                const nextRefresh = new Date();
+
+                if (now.getHours() >= 15) {
+                    nextRefresh.setDate(now.getDate() + 1);
+                }
+                nextRefresh.setHours(15, 0, 0, 0);
+
+                const timeout = nextRefresh.getTime() - now.getTime();
+                setTimeout(function () {
+                    window.location.reload();
+                }, timeout);
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                refrescarQuanSiguin15();
+                fetchCurrentTime();
+                updateDateTime();
+            });
+
+            setInterval(fetchCurrentTime, 50000);
+            setInterval(updateDateTime, 1000);
 
         </script>
     {% endblock %}

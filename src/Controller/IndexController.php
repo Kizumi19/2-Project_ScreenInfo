@@ -31,37 +31,38 @@ class IndexController extends AbstractController
     #[Route('/screen', name: 'app_index_screen')]
     public function screen(DoctorRepository $doctorRepository): Response
     {
-        // Obtenir tots els doctors
         $doctors = $doctorRepository->createQueryBuilder('d')
             ->orderBy('d.id', 'ASC')
             ->getQuery()
             ->getResult();
 
-        $fullSchedule = [];
+        $horaActual = new \DateTime();
+        $torn = $horaActual->format('H') < 15 ? 'Morning' : 'Afternoon';
+
+        $filteredSchedules = [];
         $fullSpeciality = [];
 
         foreach ($doctors as $doctor) {
             foreach ($doctor->getSchedules() as $schedule) {
-                $fullSchedule[] = $schedule;
+                if (in_array($torn, $schedule->getShift(), true)) {
+                    $filteredSchedules[] = $schedule;
+                }
             }
             foreach ($doctor->getSpecialities() as $speciality) {
                 $fullSpeciality[] = $speciality;
             }
         }
 
-        // Obtenir l'hora actual
-        $horaActual = new \DateTime();
-
-        $torn = $horaActual->format('H') < 15 ? 'dia' : 'tarda';
-
         return $this->render('screen/index.html.twig', [
             'doctors' => $doctors,
-            'fullSchedule' => $fullSchedule,
+            'fullSchedule' => $filteredSchedules,
             'fullSpeciality' => $fullSpeciality,
             'hora' => $horaActual,
             'torn' => $torn,
         ]);
     }
+
+
 
 
     #[Route('/current_time', name: 'current_time', methods: ['GET'])]
