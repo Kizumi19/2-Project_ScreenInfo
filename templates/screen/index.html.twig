@@ -168,7 +168,11 @@
             setInterval(fetchCurrentTime, 50000);
             setInterval(updateDateTime, 1000);
 
+            setInterval(function() {
+                window.location.reload();
+            }, 60000);
         </script>
     {% endblock %}
 
 {% endblock %}
+
