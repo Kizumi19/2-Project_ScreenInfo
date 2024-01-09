@@ -34,7 +34,7 @@ class ScheduleType extends AbstractType
                 'shift',
                 ChoiceType::class,
                 [
-                    'label' => 'Dies',
+                    'label' => 'Torns',
                     'label_attr' => ['style' => 'font-weight: bold; color: #333; font-size: 18px;'],
                     'required' => true,
                     'multiple' => true,
