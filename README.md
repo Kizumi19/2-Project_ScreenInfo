@@ -69,7 +69,7 @@ For any technical issues or queries, please open an issue in this repository.
 
 ---
 
-*EKRANAS Project - Intuitive Connection and Management of Medical Information.*
+*EKRANAS Project - Intuitive Connection and Management of Medical Information. - done by Kizumi19(Júlia Krukonis Beltri)*
 
 ---
 
