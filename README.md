@@ -31,7 +31,7 @@ We thank the entire development team and users who contributed their valuable su
 
 1. Clone the repository:
    ```bash
-   git clone https://example.com/ekranas.git
+   git clone https://github.com/Kizumi19/2-Project_ScreenInfo.git
    ```
 2. Install Composer dependencies:
    ```bash
