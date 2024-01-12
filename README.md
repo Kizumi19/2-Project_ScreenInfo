@@ -2,6 +2,8 @@
 
 EKRANAS is a web application developed using Symfony, designed to provide an easy-to-use interface for managing and displaying information about hospital staff.
 
+### Acknowledgments
+We thank the entire development team and users who contributed their valuable suggestions during the testing phase of EKRANAS. Specially David Romaní Also and the members of IT HCA (Hospital Comarcal d'Amposta); José Antonio Subirats, Óscar Anton Sanchez and Víctor Nicaforo Otalora.
 ## Features
 
 - **Intuitive Display:** Allows users to easily view up-to-date information about doctors.
